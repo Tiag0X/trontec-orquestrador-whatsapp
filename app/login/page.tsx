@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Lock, Eye, EyeOff, Zap } from "lucide-react"
+import { Lock, Eye, EyeOff, Zap, Mail } from "lucide-react"
 import { toast } from "sonner"
 
 export default function LoginPage() {
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
@@ -22,7 +23,7 @@ export default function LoginPage() {
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password })
+                body: JSON.stringify({ email, password })
             })
             const data = await res.json()
             if (res.ok) {
@@ -59,6 +60,17 @@ export default function LoginPage() {
                 <form onSubmit={handleLogin}>
                     <CardContent className="space-y-4 pb-4">
                         <div className="relative">
+                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                type="email"
+                                placeholder="E-mail de acesso"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="pl-9 h-11 text-sm"
+                                autoFocus
+                            />
+                        </div>
+                        <div className="relative">
                             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
                                 type={showPassword ? "text" : "password"}
@@ -66,7 +78,6 @@ export default function LoginPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="pl-9 pr-10 h-11 text-sm"
-                                autoFocus
                             />
                             <button
                                 type="button"
@@ -80,7 +91,7 @@ export default function LoginPage() {
                     <CardFooter className="flex flex-col gap-3">
                         <Button
                             className="w-full h-11 bg-[#1e3a5f] hover:bg-[#1e3a5f]/90 text-white font-medium"
-                            disabled={loading || !password}
+                            disabled={loading || !password || !email}
                         >
                             {loading ? (
                                 <span className="flex items-center gap-2">

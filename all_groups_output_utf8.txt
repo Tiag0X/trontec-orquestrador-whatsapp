@@ -1,0 +1,553 @@
+﻿COUNT:110
+[
+  {
+    "id": "110ab472-909e-4030-844c-732be9c3ac78",
+    "name": "Trontec - Comunidade",
+    "jid": "120363404451507231@g.us"
+  },
+  {
+    "id": "52c1f481-0f44-4192-98f2-67769dc95055",
+    "name": "Ed. Comercial Praia de Belas",
+    "jid": "120363406969738619@g.us"
+  },
+  {
+    "id": "d2c6a814-d3df-4305-a0aa-33894d622738",
+    "name": "Ed. Quinta de ├ëvora",
+    "jid": "120363424642638393@g.us"
+  },
+  {
+    "id": "81c771e6-f4bb-475f-ad8b-7d1647659539",
+    "name": "Ed. PRIMAVERA",
+    "jid": "120363405658866423@g.us"
+  },
+  {
+    "id": "bb826759-a8f2-4c4e-9552-bfc4cbabf7ad",
+    "name": "Ed. Senalba",
+    "jid": "120363426150085248@g.us"
+  },
+  {
+    "id": "f0d7c271-472d-4c6d-a18d-3513605fbc52",
+    "name": "Ed. Nauders",
+    "jid": "120363406125148900@g.us"
+  },
+  {
+    "id": "71b0faf2-2040-4e25-950a-29375a3313a6",
+    "name": "Ed. Leeds",
+    "jid": "120363423256534503@g.us"
+  },
+  {
+    "id": "3af71fc3-28fd-4632-8375-783a7975fa0d",
+    "name": "Ed. Lubeck",
+    "jid": "120363407604522769@g.us"
+  },
+  {
+    "id": "02a61cb2-5a22-485d-9295-fec654ce36d3",
+    "name": "Ed. Praia de Fora",
+    "jid": "120363407617382383@g.us"
+  },
+  {
+    "id": "f38562bd-e627-46ab-b46f-05e124c11a6d",
+    "name": "Ed. Golden Park",
+    "jid": "120363406594137043@g.us"
+  },
+  {
+    "id": "8eda364f-bad8-4f29-9574-b569e2ae8cb5",
+    "name": "Ed. Pieve D'Olmi",
+    "jid": "120363425560675333@g.us"
+  },
+  {
+    "id": "d242689f-ff27-4de3-8927-3bbd9394d900",
+    "name": "Ed. Bordini Wish",
+    "jid": "120363407203312716@g.us"
+  },
+  {
+    "id": "f70f8200-0cb4-4dc1-8bd5-d59bb7153bc0",
+    "name": "Ed. San German Sul",
+    "jid": "120363407108185051@g.us"
+  },
+  {
+    "id": "7bf4f6b2-706e-4619-b284-2b9911d897d1",
+    "name": "Ed. Apolo",
+    "jid": "120363408954873748@g.us"
+  },
+  {
+    "id": "b7d47046-bc19-4f96-b150-8d0fbd62876c",
+    "name": "Ed. Maison Classic",
+    "jid": "120363425629139712@g.us"
+  },
+  {
+    "id": "a47a82c0-6a02-441b-adba-e6310179e579",
+    "name": "Ed. Portal de Petr├│polis",
+    "jid": "120363404396654481@g.us"
+  },
+  {
+    "id": "3fb0e666-8252-4ed8-992d-323144e58565",
+    "name": "Ed. Vila Philipson",
+    "jid": "120363425330954422@g.us"
+  },
+  {
+    "id": "235a1151-e239-4f17-ab27-5adbfda5dc45",
+    "name": "Ed. Sky",
+    "jid": "120363422151607113@g.us"
+  },
+  {
+    "id": "2b344c9c-cead-4f64-8048-f300c97946ec",
+    "name": "Ed. Wikihaus",
+    "jid": "120363422804652876@g.us"
+  },
+  {
+    "id": "0130e84a-ca57-442f-bc92-8bae01c1a114",
+    "name": "Ed. Golf Vilas",
+    "jid": "120363425248501366@g.us"
+  },
+  {
+    "id": "b677264a-e9b7-4c49-beaa-e9521606742a",
+    "name": "Ed. San Rafael",
+    "jid": "120363425099055670@g.us"
+  },
+  {
+    "id": "6537f67c-81e8-49db-9f80-eb82c9c223ef",
+    "name": "Ed. Cleveland",
+    "jid": "120363407205949170@g.us"
+  },
+  {
+    "id": "32ad22ae-1cd8-46f3-9668-bc1d24ea9487",
+    "name": "Ed. Belle Ville",
+    "jid": "120363424694647790@g.us"
+  },
+  {
+    "id": "ff9fb920-a3fe-4b8a-9272-2f96fd43d749",
+    "name": "Pal├ício de Versalles",
+    "jid": "120363404849238731@g.us"
+  },
+  {
+    "id": "16c05fff-39ec-403a-8d79-e6f96f816b13",
+    "name": "Ed. Village Monet",
+    "jid": "120363422366044021@g.us"
+  },
+  {
+    "id": "63e85ebf-7e7f-4a65-bd7f-6c139facbcdd",
+    "name": "Ed. Sunset Place",
+    "jid": "120363405410300274@g.us"
+  },
+  {
+    "id": "797cc973-8fd8-462f-a021-5a34071bf1c3",
+    "name": "Ed. Jos├® Gomes",
+    "jid": "120363403985924208@g.us"
+  },
+  {
+    "id": "23e4757f-3ce7-4b24-bf40-b8421f286fe5",
+    "name": "Ed. New Orleans",
+    "jid": "120363404601998442@g.us"
+  },
+  {
+    "id": "278d0a21-9129-4637-b608-a7092355145b",
+    "name": "Ed. Montalto",
+    "jid": "120363402482878292@g.us"
+  },
+  {
+    "id": "37456471-0f46-4287-a962-7ac0c5d5147c",
+    "name": "Ed. Toledo",
+    "jid": "120363425850989065@g.us"
+  },
+  {
+    "id": "96be00d5-73cd-48c6-b074-d6dd101a4aa9",
+    "name": "Ed. Di Morano",
+    "jid": "120363424627196566@g.us"
+  },
+  {
+    "id": "a2a5a614-1d45-4e83-bf7a-ef24c0821456",
+    "name": "Ed. Krahe",
+    "jid": "120363423283405749@g.us"
+  },
+  {
+    "id": "52d5b8e1-04e6-4a16-86fa-fbedb8ab87e4",
+    "name": "Ed. Green Place",
+    "jid": "120363423731539990@g.us"
+  },
+  {
+    "id": "c599051c-f537-4b74-ac6d-25bf11f74515",
+    "name": "Ed. Costa Amalfitana",
+    "jid": "120363424874660468@g.us"
+  },
+  {
+    "id": "22abdc78-6cde-401e-9b8d-25285028647d",
+    "name": "Ed. Don Luciano",
+    "jid": "120363424356635069@g.us"
+  },
+  {
+    "id": "cfa82699-773a-48bf-ba71-26528c03cbb3",
+    "name": "Ed. Hyde Menino Deus",
+    "jid": "120363406645936236@g.us"
+  },
+  {
+    "id": "7c6e02d9-241d-4870-bfd1-9f3dbd2d936b",
+    "name": "Ed. One Office",
+    "jid": "120363422987755101@g.us"
+  },
+  {
+    "id": "6792d690-79f5-4b82-9a9e-e7a4fea44844",
+    "name": "Ed. Port Heaven",
+    "jid": "120363426437850064@g.us"
+  },
+  {
+    "id": "0264034b-71b8-4a8e-81f0-ef8b8886d9c8",
+    "name": "Ed. Z800",
+    "jid": "120363423591421505@g.us"
+  },
+  {
+    "id": "e71471a8-e3ed-4801-8442-f14db3c2d68b",
+    "name": "Ed. Hyde Bordini",
+    "jid": "120363405495033378@g.us"
+  },
+  {
+    "id": "dc0db129-ba1b-4a66-ad37-900e98f646ac",
+    "name": "Ed. Clos du soleil",
+    "jid": "120363404430386277@g.us"
+  },
+  {
+    "id": "4dafd670-eb8d-440c-b5bb-255add051bfa",
+    "name": "Ed. Globalmed",
+    "jid": "120363404495193890@g.us"
+  },
+  {
+    "id": "37adb387-9d55-49b7-b6d8-7ae039e49891",
+    "name": "Ed. Maison Bougainville",
+    "jid": "120363421278423980@g.us"
+  },
+  {
+    "id": "4240272c-0301-4b2d-a525-a7af85a43b09",
+    "name": "Ed. Ch├ícara Flora",
+    "jid": "120363425055100991@g.us"
+  },
+  {
+    "id": "bfad7a5c-868e-4ce3-b345-a4f22a591780",
+    "name": "Ed. Manhattan",
+    "jid": "120363422025014723@g.us"
+  },
+  {
+    "id": "b6c83007-f97c-4bfe-a49d-deb4bc1ecce5",
+    "name": "Ed. Parc Monceau",
+    "jid": "120363423804235113@g.us"
+  },
+  {
+    "id": "7b547219-08b5-488b-a607-2c4f8bdba461",
+    "name": "Ed. Henry Matisse",
+    "jid": "120363425232826328@g.us"
+  },
+  {
+    "id": "58775a76-890b-4d48-b2da-d8ecfa04f39b",
+    "name": "Ed. Ile de Lacite",
+    "jid": "120363406357121627@g.us"
+  },
+  {
+    "id": "705beba7-4677-413c-9096-665c00739df5",
+    "name": "Ed. Sierra Blanca",
+    "jid": "120363407418320339@g.us"
+  },
+  {
+    "id": "46bb5dde-7591-4154-bd56-93e37d135dd0",
+    "name": "Ed. Reserva Lagos",
+    "jid": "120363406643571323@g.us"
+  },
+  {
+    "id": "1bd88aa2-349f-47d6-a613-8d957ec6b1dd",
+    "name": "Ed. Rhodes",
+    "jid": "120363408354401254@g.us"
+  },
+  {
+    "id": "f5ab1df0-522a-4472-bc94-3ba96a291101",
+    "name": "Ed. Saint German Norte",
+    "jid": "120363405927301036@g.us"
+  },
+  {
+    "id": "7fe22731-5f06-4aa6-bd9b-ad06a3a50041",
+    "name": "Ed. Altos do Ipe",
+    "jid": "120363404170304580@g.us"
+  },
+  {
+    "id": "837cfd68-b492-42cc-b194-43c7a9e5c656",
+    "name": "Ed. Evidence",
+    "jid": "120363422595727280@g.us"
+  },
+  {
+    "id": "53361f73-5343-4fa4-84c4-a808703658c3",
+    "name": "Ed. Ch├ícara das flores",
+    "jid": "120363423305006308@g.us"
+  },
+  {
+    "id": "dcaacb15-849d-499e-9c25-0d55269ccc48",
+    "name": "Ed. Solar Praia de Belas",
+    "jid": "120363407867122562@g.us"
+  },
+  {
+    "id": "7ddf9131-3fa0-4cbb-8d5f-5ca323470556",
+    "name": "Ed. Vila Rica",
+    "jid": "120363406185013982@g.us"
+  },
+  {
+    "id": "7148c7b7-44c4-4540-bd7c-fed2929c67cd",
+    "name": "Ed. Jardim Independ├¬ncia",
+    "jid": "120363422766230484@g.us"
+  },
+  {
+    "id": "c4d5dba8-0a20-4c5b-8697-a79e3ef833ed",
+    "name": "Ed. Prov├¡ncia de Treviso",
+    "jid": "120363424821984418@g.us"
+  },
+  {
+    "id": "3dff3c5b-2e03-41ea-8a27-c7a5da07591c",
+    "name": "Ed. Varadero",
+    "jid": "120363426124994996@g.us"
+  },
+  {
+    "id": "47ac2e1c-a70d-4923-addb-4a17cff8db19",
+    "name": "Ed. Solar da Paineira",
+    "jid": "120363425496432471@g.us"
+  },
+  {
+    "id": "fba72371-571f-45ee-b507-f2e8244b71fe",
+    "name": "Ed. Recanto hibiscus",
+    "jid": "120363423232662800@g.us"
+  },
+  {
+    "id": "65206e77-8b97-4115-af08-7351b239e5f8",
+    "name": "Ed. Rondon Village",
+    "jid": "120363405498815287@g.us"
+  },
+  {
+    "id": "317ff3cd-4424-4724-87ea-3742833006e4",
+    "name": "Ed. Montreux",
+    "jid": "120363405320752247@g.us"
+  },
+  {
+    "id": "24986fc9-d7fb-4e47-bdf9-c1e9c3f171dd",
+    "name": "Ed. Prov├¡ncia de Milano",
+    "jid": "120363407208896638@g.us"
+  },
+  {
+    "id": "3aa8dba4-7ac7-4ebc-a622-55e680416390",
+    "name": "Ed. Hyde da C├óndido",
+    "jid": "120363405998918495@g.us"
+  },
+  {
+    "id": "d7688d42-94b1-4880-a425-4f9db39ef562",
+    "name": "Ed. Loft Park",
+    "jid": "120363405114269487@g.us"
+  },
+  {
+    "id": "410a57ea-a834-4df7-b64b-14ea43ea9cbf",
+    "name": "Ed. Cristal do Sol",
+    "jid": "120363426636385283@g.us"
+  },
+  {
+    "id": "8a798293-92ba-47e2-afc1-8ffda436a204",
+    "name": "Ed. Cabo Blanco",
+    "jid": "120363407037289051@g.us"
+  },
+  {
+    "id": "aa3f6b40-d293-4291-b281-1af6652418a8",
+    "name": "Ed. Parque das figueiras",
+    "jid": "120363406322870402@g.us"
+  },
+  {
+    "id": "036e37e0-2264-4c4f-94c7-176a4fe95ff0",
+    "name": "Ed. La Colina",
+    "jid": "120363423013049267@g.us"
+  },
+  {
+    "id": "ac47a2b0-8130-4409-bc8a-02350962bab5",
+    "name": "Ed. Riva del Garda",
+    "jid": "120363406416365246@g.us"
+  },
+  {
+    "id": "cef26891-ed06-4fdf-bb48-90fcc84bc32c",
+    "name": "Ed. Santa Helena",
+    "jid": "120363424157356251@g.us"
+  },
+  {
+    "id": "8e827b2e-cd91-42d7-96da-8f78a28e5c38",
+    "name": "Ed. Vila Nova de Gaia",
+    "jid": "120363406711997590@g.us"
+  },
+  {
+    "id": "a0af6917-b810-4cb2-b4ce-be5d7dcdc7e8",
+    "name": "Ed. Saint Louis",
+    "jid": "120363407643860476@g.us"
+  },
+  {
+    "id": "1fa307b6-07af-4a71-ab14-c4dd6c9e8766",
+    "name": "Ed. Rosa dos Ventos",
+    "jid": "120363422942408713@g.us"
+  },
+  {
+    "id": "b44cf5b8-8323-4ea1-8f72-0e9697c3b905",
+    "name": "Ed. Rincon Marino",
+    "jid": "120363407431163383@g.us"
+  },
+  {
+    "id": "e2c67f97-a75a-4cc5-a6d5-13ade1b48e1e",
+    "name": "Ed. Alessio Brunn",
+    "jid": "120363402633325942@g.us"
+  },
+  {
+    "id": "c8cb8474-9b53-4446-aa36-56f7cc926995",
+    "name": "Ed. Imobi",
+    "jid": "120363423621833320@g.us"
+  },
+  {
+    "id": "60095ff6-8b18-41a9-9236-20d777a856e6",
+    "name": "Ed. Loft Unique",
+    "jid": "120363424416474632@g.us"
+  },
+  {
+    "id": "0a58f2ba-b42d-45c7-a974-c45ff0d0efa6",
+    "name": "Ed. PINUS",
+    "jid": "120363425533298520@g.us"
+  },
+  {
+    "id": "e9ffe668-a2cb-4008-8c82-76efe7b9c3e2",
+    "name": "Ed. Sweet House",
+    "jid": "120363405079495800@g.us"
+  },
+  {
+    "id": "9f4d4cf0-d20a-42f8-8fbf-087a3cd5a1cd",
+    "name": "Ed. Praia de Fora",
+    "jid": "120363408886280073@g.us"
+  },
+  {
+    "id": "07403224-26f6-4682-a431-b26cbe836dd9",
+    "name": "Ed. Di roana",
+    "jid": "120363405593864984@g.us"
+  },
+  {
+    "id": "59c85a41-1b13-4782-b563-6f0dc00184b1",
+    "name": "Ed. LA scultura",
+    "jid": "120363424733277290@g.us"
+  },
+  {
+    "id": "62ed11f8-fa85-42da-9b15-97adf2913da3",
+    "name": "Ed. Demoiselle",
+    "jid": "120363408387419026@g.us"
+  },
+  {
+    "id": "461ff20f-461a-4bbb-88ad-956e87954792",
+    "name": "Ed. Palazzo Otaviano",
+    "jid": "120363424540592498@g.us"
+  },
+  {
+    "id": "af1dc639-9675-4614-aaca-6bdcb330b7ab",
+    "name": "Ed. Verbena",
+    "jid": "120363424655134959@g.us"
+  },
+  {
+    "id": "f9faa408-8b0a-46e0-ac36-600c9f545688",
+    "name": "Ed. Condado de Lugano",
+    "jid": "120363406138916438@g.us"
+  },
+  {
+    "id": "fdf75fac-7f7b-47a1-95b0-e11c81303d94",
+    "name": "Ed.New Port",
+    "jid": "120363407398059415@g.us"
+  },
+  {
+    "id": "c104fec1-674d-41b3-b739-d5d3d5460191",
+    "name": "Ed. Escorial",
+    "jid": "120363408489584370@g.us"
+  },
+  {
+    "id": "cf8ee6e3-c1f3-4ea9-bc9d-81537d13105c",
+    "name": "Ed. Copacabana",
+    "jid": "120363424602447051@g.us"
+  },
+  {
+    "id": "1bcc7829-1269-4f45-af41-43d49ee44155",
+    "name": "Ed. Jardim",
+    "jid": "120363405119726711@g.us"
+  },
+  {
+    "id": "1990d019-885a-44ab-9ff3-c206d7cadb69",
+    "name": "Ed. Globalmed deposito",
+    "jid": "120363422009796071@g.us"
+  },
+  {
+    "id": "ed16c2e3-cc30-4024-9e59-f026b2d99795",
+    "name": "Ed. Praia do Tigre",
+    "jid": "120363406376875625@g.us"
+  },
+  {
+    "id": "df77b057-be66-44a5-95c1-e9a66587c05a",
+    "name": "Ed. Via Appia",
+    "jid": "120363406177752440@g.us"
+  },
+  {
+    "id": "8f3a048b-a915-4303-90c3-6cd2c4702330",
+    "name": "Ed. Prov├¡ncia de Venezia",
+    "jid": "120363405880625233@g.us"
+  },
+  {
+    "id": "60b1043a-aef9-4aba-911f-8fce2fcd446b",
+    "name": "Ed. Vivendas do Igua├ºu",
+    "jid": "120363424115710036@g.us"
+  },
+  {
+    "id": "09a80441-5b63-47b5-b883-3ec16cef27c9",
+    "name": "Ed. La Ribeira",
+    "jid": "120363409169330708@g.us"
+  },
+  {
+    "id": "505f536e-1ceb-4df0-8f30-a6fe78904264",
+    "name": "Teste - grupo 1",
+    "jid": "120363423292989492@g.us"
+  },
+  {
+    "id": "137881bc-2348-4a51-b969-2009c4a0e0f1",
+    "name": "Testes",
+    "jid": "120363422367414519@g.us"
+  },
+  {
+    "id": "455b94e7-365b-46c2-9d33-2d0d4c6febbb",
+    "name": "Trontec - grupo",
+    "jid": "120363405467242383@g.us"
+  },
+  {
+    "id": "a9e91bb2-dfa0-45b6-8c32-cacdc2fd610b",
+    "name": "Trontec - Comunidade",
+    "jid": "120363425728385831@g.us"
+  },
+  {
+    "id": "a6064fa0-c459-4f10-a335-ae61128f7ad7",
+    "name": "TRONTEC - SAC",
+    "jid": "120363278561083487@g.us"
+  },
+  {
+    "id": "b40960fa-13b0-40b4-82f3-6a7e83ecc334",
+    "name": "TRONTEC - SUPERVIS├âO",
+    "jid": "555193215096-1595459323@g.us"
+  },
+  {
+    "id": "3a87dbbb-eb6e-431a-89e8-4565621ecdec",
+    "name": "Coordena├º├úo e Supervis├úo",
+    "jid": "555181340453-1594990788@g.us"
+  },
+  {
+    "id": "59585119-6f3d-4f58-b88a-b79acdd33680",
+    "name": "Instala├º├úo e Manuten├º├úo",
+    "jid": "555192356173-1512657011@g.us"
+  },
+  {
+    "id": "2d7bd74b-7ba7-43e1-8af7-b83bc6cae6fe",
+    "name": "Ativa├º├Áes/Fideliza├º├Áes",
+    "jid": "120363416956157404@g.us"
+  },
+  {
+    "id": "493ae138-90f5-4712-8042-c3139d761570",
+    "name": "Trontec <suporte> Haila",
+    "jid": "120363362273028748@g.us"
+  },
+  {
+    "id": "d44a817c-6eb0-438a-808d-f4c0b816ca14",
+    "name": "Rondas Trontec",
+    "jid": "555191751921-1452255324@g.us"
+  }
+]

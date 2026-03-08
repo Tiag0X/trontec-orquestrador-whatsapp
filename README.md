@@ -240,7 +240,7 @@ cp prisma/dev.db prisma/dev.db.backup
 #### 4. Puxar as atualizações do repositório
 
 ```bash
-git pull origin main
+git pull origin master
 ```
 
 > Se houver conflitos no `.env` ou em arquivos locais, resolva-os manualmente antes de prosseguir.
@@ -287,7 +287,7 @@ Para facilitar, aqui estão todos os comandos em sequência:
 cd /caminho/para/trontec-whatsapp
 pm2 stop trontec-app trontec-worker
 cp prisma/dev.db prisma/dev.db.backup
-git pull origin main
+git pull origin master
 npm install
 npx prisma generate
 npx prisma db push

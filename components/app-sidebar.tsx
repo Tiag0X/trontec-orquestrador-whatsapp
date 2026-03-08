@@ -9,7 +9,9 @@ import {
     LayoutDashboard,
     BookUser,
     LogOut,
-    Zap
+    Zap,
+    Activity,
+    Box
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -18,10 +20,12 @@ const navLinks = [
     { href: "/reports", label: "Relatórios", icon: FileText },
     { href: "/messages", label: "Comunicados", icon: MessageSquare },
     { href: "/contacts", label: "Contatos", icon: BookUser },
-    { href: "/settings", label: "Configurações", icon: Settings },
+    { href: "/settings", label: "Configurações", icon: Settings, permissionRequired: 'SETTINGS_VIEW' },
+    { href: "https://trontec-dash-rondas.vercel.app/", label: "Dashboard Rondas", icon: Activity, external: true, permissionRequired: 'DASH_RONDAS_VIEW' },
+    { href: "https://trontec-extras.vercel.app/", label: "Trontec Extras", icon: Box, external: true, permissionRequired: 'TRONTEC_EXTRAS_VIEW' },
 ]
 
-export function AppSidebar() {
+export function AppSidebar({ userPermissions = [] }: { userPermissions?: string[] }) {
     const pathname = usePathname()
 
     return (
@@ -49,15 +53,19 @@ export function AppSidebar() {
                     Menu
                 </span>
                 {navLinks.map((link) => {
+                    if (link.permissionRequired && !userPermissions.includes(link.permissionRequired)) return null
+
                     const Icon = link.icon
                     const isActive = link.href === "/"
                         ? pathname === "/"
-                        : pathname.startsWith(link.href)
+                        : (!link.external && pathname.startsWith(link.href))
 
                     return (
                         <Link
                             key={link.href}
                             href={link.href}
+                            target={link.external ? "_blank" : undefined}
+                            rel={link.external ? "noopener noreferrer" : undefined}
                             className={cn(
                                 "nav-item",
                                 isActive

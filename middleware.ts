@@ -1,8 +1,8 @@
-
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { decrypt } from '@/lib/auth'
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     const authCookie = request.cookies.get('auth')
     const { pathname } = request.nextUrl
 
@@ -12,8 +12,24 @@ export function middleware(request: NextRequest) {
     }
 
     // Check auth
-    if (!authCookie || authCookie.value !== 'true') {
+    if (!authCookie || !authCookie.value) {
         return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    // Validate JWT
+    const payload = await decrypt(authCookie.value)
+    if (!payload) {
+        const response = NextResponse.redirect(new URL('/login', request.url))
+        // Cleanup invalid cookie
+        response.cookies.delete('auth')
+        return response
+    }
+
+    // Rotas protegidas (Requerem permissão SETTINGS_VIEW)
+    if (pathname.startsWith('/settings') || pathname.startsWith('/api/settings') || pathname.startsWith('/api/users') || pathname.startsWith('/api/roles')) {
+        if (!payload.permissions.includes('SETTINGS_VIEW')) {
+            return NextResponse.redirect(new URL('/', request.url))
+        }
     }
 
     return NextResponse.next()

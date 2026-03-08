@@ -35,6 +35,11 @@ interface SettingsForm {
     isAutoReportEnabled: boolean; autoReportTime: string; autoReportPeriod: string;
     langchainModel: string; langchainTemperature: number;
 }
+interface Permission { id: string; action: string; description: string | null; }
+interface Role { id: string; name: string; description: string | null; isSystem: boolean; permissions: Permission[]; }
+interface User {
+    id: string; email: string; name: string | null; roleId: string | null; role?: { name: string }; createdAt: string;
+}
 
 export default function SettingsPage() {
     const [activeTab, setActiveTab] = useState("general")
@@ -49,6 +54,21 @@ export default function SettingsPage() {
     const [promptContent, setPromptContent] = useState("")
     const [selectedRemoteGroups, setSelectedRemoteGroups] = useState<Set<string>>(new Set())
     const [selectedLocalGroups, setSelectedLocalGroups] = useState<Set<string>>(new Set())
+
+    // Roles State
+    const [roles, setRoles] = useState<Role[]>([])
+    const [permissions, setPermissions] = useState<Permission[]>([])
+    const [loadingRoles, setLoadingRoles] = useState(false)
+    const [isRoleOpen, setIsRoleOpen] = useState(false)
+    const [editingRole, setEditingRole] = useState<Role | null>(null)
+    const [roleForm, setRoleForm] = useState<{ name: string, description: string, permissionIds: string[] }>({ name: '', description: '', permissionIds: [] })
+
+    // Users State
+    const [users, setUsers] = useState<User[]>([])
+    const [loadingUsers, setLoadingUsers] = useState(false)
+    const [isUserOpen, setIsUserOpen] = useState(false)
+    const [editingUser, setEditingUser] = useState<User | null>(null)
+    const [userForm, setUserForm] = useState({ name: '', email: '', password: '', roleId: '' })
 
     const form = useForm<SettingsForm>({
         defaultValues: {
@@ -72,10 +92,25 @@ export default function SettingsPage() {
         try { const res = await fetch('/api/prompts'); const data = await res.json(); setPrompts(Array.isArray(data) ? data : []) }
         catch { setPrompts([]) }
     }
+    const loadUsers = async () => {
+        setLoadingUsers(true)
+        try { const res = await fetch('/api/users'); const data = await res.json(); setUsers(Array.isArray(data) ? data : []) }
+        catch { setUsers([]) } finally { setLoadingUsers(false) }
+    }
+    const loadRoles = async () => {
+        setLoadingRoles(true)
+        try {
+            const res = await fetch('/api/roles');
+            const data = await res.json();
+            setRoles(Array.isArray(data.roles) ? data.roles : [])
+            setPermissions(Array.isArray(data.permissionsList) ? data.permissionsList : [])
+        }
+        catch { setRoles([]); setPermissions([]) } finally { setLoadingRoles(false) }
+    }
 
     useEffect(() => {
         fetch('/api/settings').then(r => r.json()).then(d => { if (d && !d.error) reset(d) })
-        loadGroups(); loadPrompts()
+        loadGroups(); loadPrompts(); loadUsers(); loadRoles()
     }, [reset])
 
     const onSubmit = async (data: SettingsForm) => {
@@ -201,6 +236,91 @@ export default function SettingsPage() {
         } catch { toast.error("Erro.") }
     }
 
+    // Roles Logic
+    const openRoleDialog = (role?: Role) => {
+        if (role) {
+            setEditingRole(role)
+            setRoleForm({ name: role.name, description: role.description || '', permissionIds: role.permissions.map(p => p.id) })
+        } else {
+            setEditingRole(null)
+            setRoleForm({ name: '', description: '', permissionIds: [] })
+        }
+        setIsRoleOpen(true)
+    }
+
+    const handleSaveRole = async () => {
+        if (!roleForm.name) { toast.warning("Preencha o nome do perfil."); return }
+        const url = editingRole ? `/api/roles/${editingRole.id}` : '/api/roles'
+        const method = editingRole ? 'PUT' : 'POST'
+
+        try {
+            const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(roleForm) })
+            const data = await res.json()
+            if (res.ok) {
+                toast.success(editingRole ? "Perfil atualizado!" : "Perfil criado!")
+                setIsRoleOpen(false)
+                loadRoles()
+            } else toast.error(data.error || "Erro ao salvar perfil.")
+        } catch { toast.error("Erro de conexão.") }
+    }
+
+    const handleDeleteRole = async (id: string) => {
+        if (!confirm("Excluir definitivamente este perfil?")) return
+        try {
+            const res = await fetch(`/api/roles/${id}`, { method: 'DELETE' })
+            const data = await res.json()
+            if (res.ok) { toast.success("Perfil excluído."); loadRoles() }
+            else toast.error(data.error || "Erro.")
+        } catch { toast.error("Erro.") }
+    }
+
+    // Users Logic
+    const openUserDialog = (user?: User) => {
+        if (user) {
+            setEditingUser(user)
+            setUserForm({ name: user.name || '', email: user.email, password: '', roleId: user.roleId || '' })
+        } else {
+            setEditingUser(null)
+            setUserForm({ name: '', email: '', password: '', roleId: roles.length > 0 ? roles[0].id : '' })
+        }
+        setIsUserOpen(true)
+    }
+
+    const handleSaveUser = async () => {
+        if (!userForm.email || (!editingUser && !userForm.password)) {
+            toast.warning("Preencha e-mail e senha.")
+            return
+        }
+        const url = editingUser ? `/api/users/${editingUser.id}` : '/api/users'
+        const method = editingUser ? 'PUT' : 'POST'
+
+        try {
+            const res = await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userForm)
+            })
+            const data = await res.json()
+            if (res.ok) {
+                toast.success(editingUser ? "Usuário atualizado!" : "Usuário criado!")
+                setIsUserOpen(false)
+                loadUsers()
+            } else toast.error(data.error || "Erro ao salvar usuário.")
+        } catch { toast.error("Erro de conexão.") }
+    }
+
+    const handleDeleteUser = async (id: string) => {
+        if (!confirm("Excluir definitivamente este usuário?")) return
+        try {
+            const res = await fetch(`/api/users/${id}`, { method: 'DELETE' })
+            const data = await res.json()
+            if (res.ok) {
+                toast.success("Usuário excluído.")
+                loadUsers()
+            } else toast.error(data.error || "Erro.")
+        } catch { toast.error("Erro.") }
+    }
+
     return (
         <div className="p-8 max-w-[1000px] mx-auto space-y-8">
             <header>
@@ -218,6 +338,12 @@ export default function SettingsPage() {
                     </TabsTrigger>
                     <TabsTrigger value="prompts" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 py-2.5 text-sm font-medium text-muted-foreground data-[state=active]:text-foreground gap-2">
                         <Sparkles className="h-4 w-4" /> Prompts
+                    </TabsTrigger>
+                    <TabsTrigger value="users" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 py-2.5 text-sm font-medium text-muted-foreground data-[state=active]:text-foreground gap-2">
+                        <Users className="h-4 w-4" /> Usuários
+                    </TabsTrigger>
+                    <TabsTrigger value="roles" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 py-2.5 text-sm font-medium text-muted-foreground data-[state=active]:text-foreground gap-2">
+                        <Shield className="h-4 w-4" /> Perfis
                     </TabsTrigger>
                 </TabsList>
 
@@ -587,6 +713,126 @@ export default function SettingsPage() {
                         </CardContent>
                     </Card>
                 </TabsContent>
+
+                {/* USERS */}
+                <TabsContent value="users" className="mt-6 space-y-6">
+                    <Card className="border shadow-sm">
+                        <CardHeader className="pb-4 flex flex-row items-center justify-between">
+                            <div>
+                                <CardTitle className="text-base">Gerenciamento de Usuários</CardTitle>
+                                <CardDescription>Adicione e edite administradores ou usuários padrão do sistema.</CardDescription>
+                            </div>
+                            <Button onClick={() => openUserDialog()} className="bg-primary hover:bg-primary/90 gap-2">
+                                <Plus className="h-4 w-4" /> Novo Usuário
+                            </Button>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-2">
+                                {loadingUsers ? (
+                                    Array.from({ length: 2 }).map((_, i) => (
+                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
+                                            <div className="h-4 w-32 bg-muted rounded" />
+                                            <div className="ml-auto h-4 w-20 bg-muted rounded" />
+                                        </div>
+                                    ))
+                                ) : users.length === 0 ? (
+                                    <div className="text-center py-8 text-muted-foreground">
+                                        <Shield className="h-8 w-8 mx-auto opacity-20 mb-2" />
+                                        <p className="text-sm">Nenhum usuário encontrado.</p>
+                                    </div>
+                                ) : (
+                                    users.map((user) => (
+                                        <div key={user.id} className="flex items-start gap-4 p-4 rounded-lg border hover:bg-muted/30 transition-colors group">
+                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 shrink-0">
+                                                <span className="text-primary font-semibold text-sm">
+                                                    {user.name ? user.name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+                                                </span>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <p className="text-sm font-semibold">{user.name || "Sem Nome"}</p>
+                                                    <Badge variant={user.role?.name === 'ADMIN' ? 'default' : 'secondary'} className="text-[10px]">
+                                                        {user.role?.name || "Sem perfil"}
+                                                    </Badge>
+                                                </div>
+                                                <p className="text-xs text-muted-foreground mt-0.5">{user.email}</p>
+                                            </div>
+                                            <div className="flex gap-1 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openUserDialog(user)}>
+                                                    <Edit className="h-4 w-4" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10" onClick={() => handleDeleteUser(user.id)}>
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
+                {/* ROLES */}
+                <TabsContent value="roles" className="mt-6 space-y-6">
+                    <Card className="border shadow-sm">
+                        <CardHeader className="pb-4 flex flex-row items-center justify-between">
+                            <div>
+                                <CardTitle className="text-base">Gerenciamento de Perfis (Roles)</CardTitle>
+                                <CardDescription>Crie perfis personalizados e escolha o que eles podem acessar.</CardDescription>
+                            </div>
+                            <Button onClick={() => openRoleDialog()} className="bg-primary hover:bg-primary/90 gap-2">
+                                <Plus className="h-4 w-4" /> Novo Perfil
+                            </Button>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-2">
+                                {loadingRoles ? (
+                                    Array.from({ length: 2 }).map((_, i) => (
+                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
+                                            <div className="h-4 w-32 bg-muted rounded" />
+                                            <div className="ml-auto h-4 w-20 bg-muted rounded" />
+                                        </div>
+                                    ))
+                                ) : roles.length === 0 ? (
+                                    <div className="text-center py-8 text-muted-foreground">
+                                        <Shield className="h-8 w-8 mx-auto opacity-20 mb-2" />
+                                        <p className="text-sm">Nenhum perfil encontrado.</p>
+                                    </div>
+                                ) : (
+                                    roles.map((r) => (
+                                        <div key={r.id} className="flex items-start gap-4 p-4 rounded-lg border hover:bg-muted/30 transition-colors group">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <p className="text-sm font-semibold">{r.name}</p>
+                                                    {r.isSystem && <Badge variant="outline" className="text-[10px]">Sistema</Badge>}
+                                                </div>
+                                                <p className="text-xs text-muted-foreground mt-0.5">{r.description || "Sem descrição"}</p>
+                                                <div className="flex gap-1 flex-wrap mt-2">
+                                                    {r.permissions.map(p => (
+                                                        <span key={p.id} className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded">
+                                                            {p.action}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-1 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openRoleDialog(r)}>
+                                                    <Edit className="h-4 w-4" />
+                                                </Button>
+                                                {!r.isSystem && (
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10" onClick={() => handleDeleteRole(r.id)}>
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
             </Tabs>
 
             {/* Prompt Dialog */}
@@ -624,6 +870,131 @@ export default function SettingsPage() {
                         <Button variant="outline" onClick={() => setIsPromptOpen(false)}>Cancelar</Button>
                         <Button onClick={handleSavePrompt} disabled={!promptName || !promptContent} className="bg-primary hover:bg-primary/90">
                             {editingPrompt ? "Atualizar" : "Salvar Prompt"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* User Dialog */}
+            <Dialog open={isUserOpen} onOpenChange={setIsUserOpen}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>{editingUser ? "Editar Usuário" : "Novo Usuário"}</DialogTitle>
+                        <DialogDescription>
+                            {editingUser ? "Modifique as informações do usuário." : "Preencha os dados do novo usuário."}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                            <Label>Nome Completo (Opcional)</Label>
+                            <Input
+                                value={userForm.name}
+                                onChange={e => setUserForm({ ...userForm, name: e.target.value })}
+                                placeholder="João da Silva"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>E-mail *</Label>
+                            <Input
+                                type="email"
+                                value={userForm.email}
+                                onChange={e => setUserForm({ ...userForm, email: e.target.value })}
+                                placeholder="joao@empresa.com"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>{editingUser ? "Nova Senha (deixe em branco para não alterar)" : "Senha *"}</Label>
+                            <Input
+                                type="password"
+                                value={userForm.password}
+                                onChange={e => setUserForm({ ...userForm, password: e.target.value })}
+                                placeholder={editingUser ? "******" : "Digite a senha do usuário"}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Nível de Acesso (Perfil)</Label>
+                            <select
+                                value={userForm.roleId}
+                                onChange={e => setUserForm({ ...userForm, roleId: e.target.value })}
+                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                                <option value="" disabled>Selecione um perfil...</option>
+                                {roles.map(r => (
+                                    <option key={r.id} value={r.id}>{r.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsUserOpen(false)}>Cancelar</Button>
+                        <Button onClick={handleSaveUser} className="bg-primary hover:bg-primary/90">
+                            {editingUser ? "Atualizar" : "Salvar"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Role Dialog */}
+            <Dialog open={isRoleOpen} onOpenChange={setIsRoleOpen}>
+                <DialogContent className="sm:max-w-[425px] h-[85vh] flex flex-col p-6">
+                    <DialogHeader className="flex-none">
+                        <DialogTitle>{editingRole ? "Editar Perfil" : "Novo Perfil"}</DialogTitle>
+                        <DialogDescription>
+                            Defina as opções de acesso para este grupo.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex-1 overflow-y-auto py-2 pr-2 space-y-4">
+                        <div className="space-y-2">
+                            <Label>Nome do Perfil *</Label>
+                            <Input
+                                value={roleForm.name}
+                                onChange={e => setRoleForm({ ...roleForm, name: e.target.value })}
+                                placeholder="Ex: Operador"
+                                disabled={editingRole?.isSystem}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Descrição (Opcional)</Label>
+                            <Input
+                                value={roleForm.description}
+                                onChange={e => setRoleForm({ ...roleForm, description: e.target.value })}
+                                placeholder="O que este perfil faz..."
+                            />
+                        </div>
+                        <div className="space-y-3 pt-2">
+                            <Label>Permissões</Label>
+                            <div className="grid grid-cols-1 gap-2 border rounded-md p-3 max-h-[300px] overflow-y-auto">
+                                {permissions.map(p => (
+                                    <div key={p.id} className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-2 hover:bg-muted/50 transition-colors">
+                                        <Checkbox
+                                            id={`perm-${p.id}`}
+                                            checked={roleForm.permissionIds.includes(p.id)}
+                                            onCheckedChange={(checked) => {
+                                                setRoleForm(prev => ({
+                                                    ...prev,
+                                                    permissionIds: checked
+                                                        ? [...prev.permissionIds, p.id]
+                                                        : prev.permissionIds.filter(id => id !== p.id)
+                                                }))
+                                            }}
+                                        />
+                                        <div className="space-y-1 leading-none">
+                                            <Label htmlFor={`perm-${p.id}`} className="text-sm font-medium cursor-pointer">
+                                                {p.action}
+                                            </Label>
+                                            <p className="text-[10px] text-muted-foreground">
+                                                {p.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <DialogFooter className="flex-none pt-4 border-t mt-2">
+                        <Button variant="outline" onClick={() => setIsRoleOpen(false)}>Cancelar</Button>
+                        <Button onClick={handleSaveRole} className="bg-primary hover:bg-primary/90">
+                            {editingRole ? "Atualizar" : "Salvar"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>

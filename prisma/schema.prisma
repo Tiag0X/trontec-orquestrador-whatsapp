@@ -132,3 +132,40 @@ model ScheduledMessage {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  
+  // Relação com Role (Perfil)
+  roleId       String?
+  role         Role?    @relation(fields: [roleId], references: [id])
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique // ex: "ADMIN", "OPERATOR", "USER"
+  description String?
+  isSystem    Boolean  @default(false) // Trava perfis padrão do sistema (ex: Admin primário)
+  
+  users       User[]
+  permissions Permission[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  action      String   // A chave única, ex: "SETTINGS_VIEW", "USER_MANAGEMENT", "DASHBOARD_VIEW"
+  description String?
+  
+  roles       Role[]   // Relação N-N: uma permissão pode estar em várias roles
+  
+  @@unique([action])
+}
