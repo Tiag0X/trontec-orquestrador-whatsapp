@@ -1,0 +1,4 @@
+scripts/find-groups.ts(11,66): error TS2551: Property 'active' does not exist on type '{ id: string; createdAt: Date; name: string; jid: string; isActive: boolean; includeInAutoReport: boolean; sendToJid: string | null; sendToName: string | null; promptId: string | null; }'. Did you mean 'isActive'?
+scripts/find-groups.ts(11,92): error TS2551: Property 'includeAutoReport' does not exist on type '{ id: string; createdAt: Date; name: string; jid: string; isActive: boolean; includeInAutoReport: boolean; sendToJid: string | null; sendToName: string | null; promptId: string | null; }'. Did you mean 'includeInAutoReport'?
+scripts/trigger-manual-report.ts(26,36): error TS2339: Property 'startDate' does not exist on type '{ groupIds: string[]; }'.
+scripts/trigger-manual-report.ts(26,61): error TS2339: Property 'endDate' does not exist on type '{ groupIds: string[]; }'.

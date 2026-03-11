@@ -16,7 +16,7 @@ async function main() {
         
         messages.forEach((m, i) => {
             const date = new Date(m.timestamp > 1e12 ? m.timestamp : m.timestamp * 1000);
-            console.log(`[${i}] ID: ${m.id} | Date: ${date.toISOString()} | Text: ${m.text.substring(0, 30)}... | HasText: ${!!m.text && m.text.trim() !== ""}`);
+            console.log(`[${i}] ID: ${m.id} | Date: ${date.toISOString()} | Text: ${(m.text || "").substring(0, 30)}... | HasText: ${!!m.text && m.text.trim() !== ""}`);
         });
 
     } catch (e: any) {

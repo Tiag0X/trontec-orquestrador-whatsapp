@@ -8,7 +8,7 @@ async function main() {
 
     console.log(`🔍 Found ${groups.length} groups with 'Rondas' in name:`);
     groups.forEach(g => {
-        console.log(`ID: ${g.id} | Name: ${g.name} | Active: ${g.active} | AutoReport: ${g.includeAutoReport}`);
+        console.log(`ID: ${g.id} | Name: ${g.name} | Active: ${g.isActive} | AutoReport: ${g.includeInAutoReport}`);
     });
 }
 

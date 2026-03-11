@@ -23,7 +23,7 @@ async function main() {
         // startDate e endDate omitidos para usar o padrão TODAY do processor
     };
 
-    console.log(`Filtro: ${options.startDate} ate ${options.endDate}`);
+    console.log(`Filtro: TODAY (by default)`);
 
     try {
         const result = await processor.process(options);
