@@ -14,26 +14,30 @@ fi
 cd $DIR
 
 echo ""
-echo "📦 [1/6] Criando backup de segurança do banco de dados..."
-# Garantir que exista um dev.db antes de copiar, para não parar o script atoa
+echo "📦 [1/6] Protegendo o Banco de Dados (Backup e Isolamento)..."
 if [ -f "prisma/dev.db" ]; then
     cp prisma/dev.db prisma/dev_safe_backup_$(date +%F_%H-%M-%S).db
-    echo "   -> Backup do dev.db criado com sucesso."
-elif [ -f "prisma/prisma/dev.db" ]; then
+    mv prisma/dev.db prisma/dev.db.bak
+fi
+if [ -f "prisma/prisma/dev.db" ]; then
     cp prisma/prisma/dev.db prisma/dev_safe_backup_$(date +%F_%H-%M-%S).db
-    echo "   -> Backup do prisma/dev.db criado com sucesso."
-else
-    echo "   -> Nenhum banco dev.db encontrado para backup."
+    mv prisma/prisma/dev.db prisma/prisma/dev.db.bak
 fi
 
 echo ""
-echo "📥 [2/6] Baixando atualizações do GitHub..."
+echo "📥 [2/6] Baixando atualizações do GitHub e limpando rastros..."
 git stash || true
-git checkout master || true
+git reset --hard HEAD || true
 git pull origin master
 
 echo ""
-echo "🔧 [3/6] Removendo tracking do banco (se houver)..."
+echo "🔧 [3/6] Restaurando Banco de Dados e removendo do Git..."
+if [ -f "prisma/dev.db.bak" ]; then
+    mv prisma/dev.db.bak prisma/dev.db
+fi
+if [ -f "prisma/prisma/dev.db.bak" ]; then
+    mv prisma/prisma/dev.db.bak prisma/prisma/dev.db
+fi
 git rm --cached prisma/dev.db 2>/dev/null || true
 git rm --cached prisma/prisma/dev.db 2>/dev/null || true
 
