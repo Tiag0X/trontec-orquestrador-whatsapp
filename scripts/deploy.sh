@@ -43,8 +43,8 @@ npm install
 npx prisma generate
 
 echo ""
-echo "🗄️ [5/6] Aplicando Migrations no Banco de Dados..."
-npx prisma migrate deploy
+echo "🗄️ [5/6] Aplicando Estrutura no Banco de Dados..."
+npx prisma db push --accept-data-loss
 
 echo ""
 echo "🏗️ [6/6] Compilando a aplicação (Build) e Reiniciando Servidor..."
