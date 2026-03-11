@@ -1,5 +1,6 @@
 import { prisma } from "../prisma";
-import { EvolutionService } from "./evolution.service";
+import { WhatsAppProvider } from "./whatsapp.provider";
+import { WhatsAppFactory } from "./whatsapp.factory";
 import { LangChainService } from "./langchain-agent.service";
 
 
@@ -11,11 +12,10 @@ interface ProcessOptions {
 }
 
 export class ReportProcessor {
-    private evolutionService: EvolutionService;
+    private whatsappProvider: WhatsAppProvider | null = null;
     private langchainService: LangChainService;
 
     constructor() {
-        this.evolutionService = new EvolutionService("", "", ""); // Will be initialized with DB Settings
         this.langchainService = new LangChainService("");
     }
 
@@ -23,14 +23,7 @@ export class ReportProcessor {
         const settings = await prisma.settings.findFirst();
         if (!settings) throw new Error("Settings not configured");
 
-        // debug logs kept as console for low-level dev, or move to debug level if implemented
-        // console.log(`[DEBUG] Initializing Processor with: URL=${settings.evolutionApiUrl}, Instance=${settings.evolutionInstanceName}`);
-
-        this.evolutionService = new EvolutionService(
-            settings.evolutionApiUrl,
-            settings.evolutionInstanceName,
-            settings.evolutionToken
-        );
+        this.whatsappProvider = WhatsAppFactory.getProvider(settings);
 
         // Advanced AI Settings
         const lcModel = settings.langchainModel || "gpt-4o-mini";
@@ -115,24 +108,27 @@ Você deve retornar um objeto JSON válido com a seguinte estrutura:
             if (!startDate) {
                 const period = dbSettings?.autoReportPeriod || 'YESTERDAY';
                 const now = new Date();
+                
+                // Use America/Sao_Paulo for date logic (UTC-3)
+                const localDate = now.toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }); // YYYY-MM-DD
 
                 if (period === 'TODAY') {
-                    startDate = now.toISOString().split('T')[0]; // Current YYYY-MM-DD
-                    endDate = startDate;
+                    startDate = localDate;
+                    endDate = localDate;
                 } else if (period === '24H') {
-                    const yesterday = new Date();
-                    yesterday.setDate(yesterday.getDate() - 1);
-                    startDate = yesterday.toISOString().split('T')[0];
-                    endDate = now.toISOString().split('T')[0];
+                    const yesterday = new Date(now);
+                    yesterday.setDate(now.getDate() - 1);
+                    startDate = yesterday.toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
+                    endDate = localDate;
                 } else {
                     // YESTERDAY (Default)
-                    const yesterday = new Date();
+                    const yesterday = new Date(now);
                     yesterday.setDate(yesterday.getDate() - 1);
-                    const yStr = yesterday.toISOString().split('T')[0];
+                    const yStr = yesterday.toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
                     startDate = yStr;
                     endDate = yStr;
                 }
-                console.log(`[AUTO] Calculated Period (${period}): ${startDate} to ${endDate}`);
+                console.log(`[AUTO] Calculated Local Period (${period}): ${startDate} to ${endDate} (Ref: ${now.toISOString()})`);
             }
 
             const results = [];
@@ -160,12 +156,10 @@ Você deve retornar um objeto JSON válido com a seguinte estrutura:
 
     private async processSingleGroup(groupJid: string, groupName: string, groupId?: string, options?: { startDate?: string, endDate?: string, sendToJid?: string, customPrompt?: string, agentType?: 'SIMPLE' | 'LANGCHAIN' }) {
         try {
-            // 0. Fetch Settings for Prompt
-            const settings = await prisma.settings.findFirst();
-
             // 1. Fetch
-
-            const messages = await this.evolutionService.fetchMessages(groupJid);
+            const settings = await prisma.settings.findFirst();
+            if (!this.whatsappProvider) await this.initialize();
+            const messages = await this.whatsappProvider!.fetchMessages(groupJid, 2000);
 
             // 2. Filter
             let filterStart: Date;
@@ -188,15 +182,22 @@ Você deve retornar um objeto JSON válido com a seguinte estrutura:
                 filterEnd.setHours(filterEnd.getHours() + 4);
             }
 
-            let filteredMessages = messages.filter(msg => {
-                const msgTime = new Date(Number(msg.messageTimestamp) * 1000);
-                const hasText = msg.message?.conversation ||
-                    msg.message?.extendedTextMessage?.text ||
-                    msg.message?.imageMessage?.caption ||
-                    msg.message?.locationMessage ||
-                    msg.message?.reactionMessage; // Include reactions
-                return msgTime >= filterStart && msgTime <= filterEnd && hasText;
+            console.log(`[DEBUG] Range: ${filterStart.toISOString()} to ${filterEnd.toISOString()}`);
+            let filteredMessages = messages.filter((msg, idx) => {
+                // Uazapi Provider already returns ms if > 1e12
+                const timestamp = (msg.timestamp && msg.timestamp > 1e12) ? msg.timestamp : (msg.timestamp ? msg.timestamp * 1000 : Date.now());
+                const msgTime = new Date(timestamp);
+                const hasText = !!msg.text && msg.text.trim() !== "";
+                
+                const isWithinRange = msgTime >= filterStart && msgTime <= filterEnd;
+                
+                if (idx < 5) {
+                    console.log(`[DEBUG] Msg ${idx}: ${msgTime.toISOString()} | text: ${msg.text?.substring(0, 20)}... | Range: ${isWithinRange} | Text: ${hasText}`);
+                }
+                
+                return isWithinRange && hasText;
             });
+            console.log(`[DEBUG] [${groupName}] Filtered ${filteredMessages.length} messages out of ${messages.length}.`);
 
             console.log(`[DEBUG] [${groupName}] Fetched ${messages.length} messages.`);
 
@@ -240,23 +241,11 @@ Você deve retornar um objeto JSON válido com a seguinte estrutura:
 
             // 3. Prepare for AI
             const messagesJson = JSON.stringify(filteredMessages.map(m => {
-                let text = m.message?.conversation || m.message?.extendedTextMessage?.text || m.message?.imageMessage?.caption;
-
-                if (m.message?.locationMessage) {
-                    const loc = m.message.locationMessage;
-                    text = `📍 Localização: ${loc.degreesLatitude}, ${loc.degreesLongitude}`;
-                    if (loc.name) text += ` (${loc.name})`;
-                    if (loc.address) text += ` - ${loc.address}`;
-                }
-
-                if (m.message?.reactionMessage) {
-                    text = `[Reação: ${m.message.reactionMessage.text}]`;
-                }
-
+                const timestamp = (m.timestamp && m.timestamp > 1e12) ? m.timestamp : (m.timestamp ? m.timestamp * 1000 : Date.now());
                 return {
                     user: m.pushName,
-                    text: text,
-                    time: new Date(Number(m.messageTimestamp) * 1000).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' })
+                    text: m.text,
+                    time: new Date(timestamp).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' })
                 };
             }));
 
@@ -311,7 +300,17 @@ ${processedTemplate}
 
 
             // 4.1 AI returns pure Markdown now
-            const markdownReport: string = await this.langchainService.generateReport(messagesJson, dateRef, systemPrompt, groupName);
+            let markdownReport = "";
+            let aiFailed = false;
+            let aiErrorReason = "";
+            try {
+                markdownReport = await this.langchainService.generateReport(messagesJson, dateRef, systemPrompt, groupName);
+            } catch (aiError: any) {
+                console.error(`[WARN] AI Generation failed for ${groupName}:`, aiError.message);
+                aiFailed = true;
+                aiErrorReason = aiError.message || "Erro desconhecido na IA (verifique a API Key)";
+                markdownReport = `🚨 **Falha na Inteligência Artificial**\n\nNão foi possível gerar o resumo devido a um erro na API da IA.\n\n**Detalhes do Erro:** ${aiErrorReason}\n\n*A extração das mensagens brutas foi salva no banco de dados para proteção.*`;
+            }
 
             // 4.1.1 Helper to extract Markdown sections precisely (Handling Emojis in Headers)
             const extractSection = (md: string, sectionTitle: string): string => {
@@ -369,17 +368,22 @@ ${processedTemplate}
                     actions: reportData.actions || "[]",
                     engagement: reportData.engagement || "",
 
-                    status: "GENERATED",
+                    status: aiFailed ? "FAILED" : "GENERATED",
                     groupId: groupId || undefined,
                     processedData: messagesJson
                 }
             });
 
+            if (aiFailed) {
+                console.log(`[INFO] AI Failed for ${groupName}. Report saved with FAILED status. WhatsApp send skipped.`);
+                return { status: "FAILED", reportId: report.id, reason: aiErrorReason };
+            }
+
             // 6. Send
             const targetJid = options?.sendToJid || groupJid;
             console.log(`[INFO] Sending report for ${groupName} to ${targetJid} ${options?.sendToJid ? '(Custom Destination)' : '(Origin Group)'}`);
 
-            await this.evolutionService.sendMessage(targetJid, reportData.whatsappText || "Erro no relatório.");
+            await this.whatsappProvider!.sendMessage(targetJid, reportData.whatsappText || "Erro no relatório.");
 
             // 7. Update status
             await prisma.report.update({

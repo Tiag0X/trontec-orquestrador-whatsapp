@@ -13,9 +13,18 @@ datasource db {
 
 model Settings {
   id                    Int     @id @default(1)
+  
+  // Legacy Evolution fields (to be deprecated)
   evolutionApiUrl       String  @default("https://api.autonexus.app")
   evolutionInstanceName String  @default("Informação - Clientes")
   evolutionToken        String  @default("")
+
+  // New Generic Provider Fields
+  whatsappProvider      String  @default("EVOLUTION") // EVOLUTION, UAZAPI
+  whatsappApiUrl        String  @default("https://api.autonexus.app")
+  whatsappToken         String  @default("")
+  whatsappInstanceName  String  @default("Informação - Clientes")
+
   whatsappGroupId       String  @default("")
   openaiApiKey          String  @default("")
   systemPrompt          String? // Custom system prompt for AI

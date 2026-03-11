@@ -16,6 +16,10 @@ export async function POST(req: Request) {
 
         // Sanitize: convert empty strings to null for optional fields
         const sanitized = {
+            whatsappProvider: (body.whatsappProvider as string) || 'EVOLUTION',
+            whatsappApiUrl: (body.whatsappApiUrl as string) || '',
+            whatsappToken: (body.whatsappToken as string) || '',
+            whatsappInstanceName: (body.whatsappInstanceName as string) || '',
             evolutionApiUrl: (body.evolutionApiUrl as string) || '',
             evolutionInstanceName: (body.evolutionInstanceName as string) || '',
             evolutionToken: (body.evolutionToken as string) || '',

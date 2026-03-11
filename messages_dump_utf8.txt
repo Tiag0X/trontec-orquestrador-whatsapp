@@ -1,0 +1,64 @@
+﻿­ƒôí Dumping 100 messages from group: 555191751921-1452255324@g.us...
+Total: 57
+[0] ID: AC0B083A30DC98D0C8C1A207277E4BF3 | Date: 2026-03-11T02:00:20.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[1] ID: 3EB0A0A1BE04345A57913E | Date: 2026-03-11T01:40:39.000Z | Text: ­ƒæì­ƒÅ╗... | HasText: true
+[2] ID: ACD47E6C049414B4F3615839BC141CF7 | Date: 2026-03-11T01:39:24.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[3] ID: AC41A8B4AA3D425680B9BD839E1F8B0E | Date: 2026-03-11T01:08:54.000Z | Text: SN... | HasText: true
+[4] ID: AC9F6235F924818B8D3F2ED245EA2C77 | Date: 2026-03-11T01:08:20.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[5] ID: 3EB025D0226668AFD812F4 | Date: 2026-03-11T00:48:27.000Z | Text: tks... | HasText: true
+[6] ID: 3EB0D3CC623B5E21D65316 | Date: 2026-03-11T00:48:26.000Z | Text: positivo... | HasText: true
+[7] ID: AC038F6B76ED6D2EE0BBF8E68737B6CD | Date: 2026-03-11T00:48:10.000Z | Text: ... | HasText: false
+[8] ID: AC615F2E9CD2452679A5500080EDEAF4 | Date: 2026-03-11T00:47:47.000Z | Text: ... | HasText: false
+[9] ID: AC22C83323CBC6C6AE9A48E53D58EDE9 | Date: 2026-03-11T00:47:19.000Z | Text: Condom├¡nio: Villa Phillipson. ... | HasText: true
+[10] ID: ACC8BBB9BEEB365D5C586B4C10900680 | Date: 2026-03-11T00:45:21.000Z | Text: Vegeta├º├úo tocando a cerca el├®t... | HasText: true
+[11] ID: AC601725056779E2240C234FFF70197A | Date: 2026-03-11T00:42:48.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[12] ID: 3AE50E0C85C2C42CBCB4 | Date: 2026-03-11T00:35:55.000Z | Text: ­ƒæì­ƒÅ╗... | HasText: true
+[13] ID: AC5079F23A8F0E0B9E553B8FC610AB9D | Date: 2026-03-11T00:35:36.000Z | Text: Condom├¡nio: Quinta de ├ëvora 
+H... | HasText: true
+[14] ID: AC4B661FCA5CE0BD3EC620978CFB114A | Date: 2026-03-11T00:31:46.000Z | Text: Dist├óncia entre os polos do Re... | HasText: true
+[15] ID: AC93FDD67E38CF9977BBCCBDFA076168 | Date: 2026-03-11T00:28:49.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[16] ID: ACE566D6ABACB02D98B853BB2CC47E83 | Date: 2026-03-11T00:08:36.000Z | Text: Kwid 02 abastecido... | HasText: true
+[17] ID: AC98B6E81E47EF26C9FF072953DDA5D4 | Date: 2026-03-11T00:08:24.000Z | Text: ... | HasText: false
+[18] ID: ACCF456814043919C096156EC5C9787A | Date: 2026-03-10T23:37:26.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[19] ID: 3EB0ACD594D2304C591FF7 | Date: 2026-03-10T23:22:16.000Z | Text: tks... | HasText: true
+[20] ID: 3EB03F61084572885A647F | Date: 2026-03-10T23:22:15.000Z | Text: positivo... | HasText: true
+[21] ID: AC230D0BBA13E452C3F138B2350917B5 | Date: 2026-03-10T23:22:02.000Z | Text: Condom├¡nio: Portal Petr├│polis.... | HasText: true
+[22] ID: ACF57FB0B4961CE743405F62E33E22EB | Date: 2026-03-10T23:21:30.000Z | Text: ... | HasText: false
+[23] ID: ACF96D76E22B569C8ABD808FD29C80B1 | Date: 2026-03-10T23:21:29.000Z | Text: ... | HasText: false
+[24] ID: AC8BC32F480E0B72EE3FA2AEF3D60FFF | Date: 2026-03-10T23:21:28.000Z | Text: ... | HasText: false
+[25] ID: ACF3BB5A10D88BB02B6183804DF4D3BB | Date: 2026-03-10T23:21:28.000Z | Text: ... | HasText: false
+[26] ID: ACC818E05B89CB9FB1CDD96A210B7E96 | Date: 2026-03-10T23:21:28.000Z | Text: ... | HasText: false
+[27] ID: AC55CB4E5252B4C1A73CBB33DBF36D16 | Date: 2026-03-10T23:21:26.000Z | Text: ... | HasText: false
+[28] ID: AC123CBD129B5EDA35180E5A03652DA7 | Date: 2026-03-10T23:21:25.000Z | Text: ... | HasText: false
+[29] ID: ACCA12075693A8C8EC2D13F6600EBEE9 | Date: 2026-03-10T23:21:25.000Z | Text: ... | HasText: false
+[30] ID: AC234E55D6EF9D6FFDCF0C2D7027C907 | Date: 2026-03-10T23:21:25.000Z | Text: ... | HasText: false
+[31] ID: AC0AA6A53AB0DB0DAFC2BC4A02D3DBE5 | Date: 2026-03-10T23:21:24.000Z | Text: ... | HasText: false
+[32] ID: AC935D55DF38083AE008F71853B98B43 | Date: 2026-03-10T23:21:21.000Z | Text: Condom├¡nio: Portal Petr├│polis.... | HasText: true
+[33] ID: AC4C708E142675DA78FA73107E80080E | Date: 2026-03-10T23:18:08.000Z | Text: Galonera... | HasText: true
+[34] ID: AC3CA4833F66E659AE05FEDF59A37E5E | Date: 2026-03-10T23:17:49.000Z | Text: Condom├¡nio: Di Roana 
+Hora/dat... | HasText: true
+[35] ID: AC6FAB2C0BE9841BF2A8BDF73C60C3DD | Date: 2026-03-10T23:07:32.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[36] ID: ACC9345270AAAE0AACC4E498B6B72E84 | Date: 2026-03-10T23:07:18.000Z | Text: Positivo... | HasText: true
+[37] ID: 3AA7997E64D27DB043E0 | Date: 2026-03-10T22:57:37.000Z | Text: Troca l├í... | HasText: true
+[38] ID: 3AC5747E6A0DF4CCFA3E | Date: 2026-03-10T22:49:03.000Z | Text: ­ƒæì­ƒÅ╗... | HasText: true
+[39] ID: AC7CCADEA2E2CBDD2DBD93E87320A25D | Date: 2026-03-10T22:47:32.000Z | Text: Saliento que a luz de inje├º├úo ... | HasText: true
+[40] ID: AC269A2D19907B4F861B073BDF30BFC4 | Date: 2026-03-10T22:46:24.000Z | Text: Condom├¡nio: Altos do Ip├¬ 
+Hora... | HasText: true
+[41] ID: ACD32358E0EC4EA6C89543927D03006B | Date: 2026-03-10T22:43:30.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[42] ID: AC429A822D41951E9713B902BFF39506 | Date: 2026-03-10T21:09:14.000Z | Text: ... | HasText: false
+[43] ID: AC2455FA7F8C052CD6971F557AF63341 | Date: 2026-03-10T21:09:13.000Z | Text: ... | HasText: false
+[44] ID: ACC606038B001E944959717A40773EB5 | Date: 2026-03-10T21:09:13.000Z | Text: ... | HasText: false
+[45] ID: AC86B8EE2771BF24AFE18CBFA177B233 | Date: 2026-03-10T21:09:13.000Z | Text: ... | HasText: false
+[46] ID: AC40C4D424A44EC5C06886ADCC8E0782 | Date: 2026-03-10T21:08:30.000Z | Text: Condom├¡nio: Villa Phillipson. ... | HasText: true
+[47] ID: AC8BE27006F6428F07127FED8239F19F | Date: 2026-03-10T19:39:18.000Z | Text: Condom├¡nio: Jardim Independ├¬nc... | HasText: true
+[48] ID: AC4CFDF890D7388C3675A9FB352BDFD2 | Date: 2026-03-10T19:32:20.000Z | Text: ... | HasText: false
+[49] ID: ACA93382F12F8532EA32B7FC924D4A7E | Date: 2026-03-10T19:32:20.000Z | Text: Condom├¡nio Sweet House
+Data: 1... | HasText: true
+[50] ID: ACE9ABD610157324EB7801147D5AC131 | Date: 2026-03-10T19:32:19.000Z | Text: ... | HasText: false
+[51] ID: AC7A2175AFA393E55118328629096A2A | Date: 2026-03-10T19:30:46.000Z | Text: Vila Rica Bloco B 4/4... | HasText: true
+[52] ID: AC3E9EEB087E0B51B81CDE3FFBBB7F7A | Date: 2026-03-10T19:30:38.000Z | Text: ­ƒôì Localiza├º├úo: R. Ramiro Barc... | HasText: true
+[53] ID: ACAC31BDD038D2021D65D49D42989F3E | Date: 2026-03-10T19:01:03.000Z | Text: Condom├¡nio Senalba 
+Cerca el├®t... | HasText: true
+[54] ID: ACC7A555A1C08BCBE92F23287044BFDB | Date: 2026-03-10T17:53:46.000Z | Text: ­ƒôì Localiza├º├úo em Tempo Real: ... | HasText: true
+[55] ID: ACBAFF8BB4890147C5AE74C1665EA60C | Date: 2026-03-10T17:11:20.000Z | Text: Condom├¡nio: ch├ícara das Flores... | HasText: true
+[56] ID: ACAD9EE6D945B55D946711FF549C64C2 | Date: 2026-03-10T16:39:51.000Z | Text: Vila Rica Bloco B 3/4... | HasText: true

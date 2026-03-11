@@ -16,6 +16,8 @@ async function main() {
         { action: 'GROUP_MANAGEMENT', description: 'Adicionar e remover Grupos via WhatsApp. (Controle sobre quais grupos estão sendo monitorados e vinculação remota)' },
         { action: 'PROMPT_MANAGEMENT', description: 'Criar e editar Prompts do Chat. (Definição do comportamento e instruções para a Inteligência Artificial)' },
         { action: 'REPORTS_VIEW', description: 'Visualizar os Relatórios gerados. (Acesso ao histórico e informações consolidadas da operação diária)' },
+        { action: 'MESSAGES_VIEW', description: 'Módulo de Comunicados. (Permite enviar, agendar e visualizar campanhas de mensagens em massa)' },
+        { action: 'CONTACTS_VIEW', description: 'Visualizar banco de Contatos. (Acesso à lista sincronizada de membros e contatos de telefone)' },
         { action: 'DASH_RONDAS_VIEW', description: 'Acessar Dashboard Rondas. (Redirecionamento para a visão analítica de Rondas da Trontec)' },
         { action: 'TRONTEC_EXTRAS_VIEW', description: 'Acessar Trontec Extras. (Navegação para o portal de módulos extras do sistema)' },
     ]

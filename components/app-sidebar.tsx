@@ -17,9 +17,9 @@ import { cn } from "@/lib/utils"
 
 const navLinks = [
     { href: "/", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/reports", label: "Relatórios", icon: FileText },
-    { href: "/messages", label: "Comunicados", icon: MessageSquare },
-    { href: "/contacts", label: "Contatos", icon: BookUser },
+    { href: "/reports", label: "Relatórios", icon: FileText, permissionRequired: 'REPORTS_VIEW' },
+    { href: "/messages", label: "Comunicados", icon: MessageSquare, permissionRequired: 'MESSAGES_VIEW' },
+    { href: "/contacts", label: "Contatos", icon: BookUser, permissionRequired: 'CONTACTS_VIEW' },
     { href: "/settings", label: "Configurações", icon: Settings, permissionRequired: 'SETTINGS_VIEW' },
     { href: "https://trontec-dash-rondas.vercel.app/", label: "Dashboard Rondas", icon: Activity, external: true, permissionRequired: 'DASH_RONDAS_VIEW' },
     { href: "https://trontec-extras.vercel.app/", label: "Trontec Extras", icon: Box, external: true, permissionRequired: 'TRONTEC_EXTRAS_VIEW' },

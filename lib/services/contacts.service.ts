@@ -1,28 +1,25 @@
 import { prisma } from "@/lib/prisma";
-import { EvolutionService } from "./evolution.service";
+import { WhatsAppProvider } from "./whatsapp.provider";
+import { WhatsAppFactory } from "./whatsapp.factory";
 
 export class ContactsService {
-    private evolutionService: EvolutionService;
+    private whatsappProvider: WhatsAppProvider | null = null;
 
-    constructor() {
-        // We initialize with empty values, assuming initialize() will be called or values aren't needed for DB ops
-        // But for sync we need the real service.
-        this.evolutionService = new EvolutionService("", "", "");
-    }
+    constructor() {}
 
-    private async getEvolutionService() {
+    private async getProvider() {
         const settings = await prisma.settings.findFirst();
         if (!settings) throw new Error("Settings not configured");
-        return new EvolutionService(settings.evolutionApiUrl, settings.evolutionInstanceName, settings.evolutionToken);
+        return WhatsAppFactory.getProvider(settings);
     }
 
     async syncContacts() {
-        const service = await this.getEvolutionService();
+        const provider = await this.getProvider();
         const activeGroups = await prisma.group.findMany({ where: { isActive: true } });
         const activeGroupJids = new Set(activeGroups.map(g => g.jid));
 
         // Fetch All Groups with Participants (Bulk)
-        const allGroupsData = await service.fetchGroupsWithParticipants() as { id: string, participants: { id: string, phoneNumber?: string, user?: string }[] }[];
+        const allGroupsData = await provider.fetchGroupsWithParticipants();
 
         const stats = {
             totalGroups: activeGroups.length,
@@ -42,9 +39,9 @@ export class ContactsService {
             // STRATEGY: Fetch recent messages to get PushNames (since participant list lacks them)
             const jidToName: Record<string, string> = {};
             try {
-                const recentMessages = await service.fetchMessages(data.id, 1); // 1 page (50 msgs)
+                const recentMessages = await provider.fetchMessages(data.id, 50); 
                 recentMessages.forEach(msg => {
-                    const sender = msg.key.participant || msg.key.remoteJid; // In groups, sender is participant
+                    const sender = msg.participant || msg.from; 
                     if (sender && msg.pushName) {
                         jidToName[sender] = msg.pushName;
                     }
@@ -90,6 +87,49 @@ export class ContactsService {
                         }
                     }
                 });
+            }
+        }
+
+        return stats;
+    }
+
+    async syncAllContacts() {
+        const provider = await this.getProvider();
+        const contacts = await provider.fetchAllContacts();
+        
+        const stats = {
+            totalFound: contacts.length,
+            created: 0,
+            updated: 0
+        };
+
+        for (const c of contacts) {
+            try {
+                const existing = await prisma.contact.findUnique({
+                    where: { jid: c.jid }
+                });
+
+                if (existing) {
+                    await prisma.contact.update({
+                        where: { id: existing.id },
+                        data: {
+                            name: c.name || existing.name,
+                            pushName: c.name || existing.pushName,
+                        }
+                    });
+                    stats.updated++;
+                } else {
+                    await prisma.contact.create({
+                        data: {
+                            jid: c.jid,
+                            name: c.name || "",
+                            pushName: c.name || "",
+                        }
+                    });
+                    stats.created++;
+                }
+            } catch (e) {
+                console.error(`Error syncing contact ${c.jid}:`, e);
             }
         }
 
@@ -143,7 +183,7 @@ export class ContactsService {
     }
 
     async enrichContacts(limit = 10) {
-        const service = await this.getEvolutionService();
+        const provider = await this.getProvider();
 
         // Find contacts that we haven't checked fully?
         // Or just those without picture OR description?
@@ -165,20 +205,15 @@ export class ContactsService {
         for (const contact of contactsToUpdate) {
             const dataToUpdate: Record<string, unknown> = {};
 
-            // 1. Profile Picture
-            if (!contact.profilePictureUrl) {
-                const picUrl = await service.fetchProfilePictureUrl(contact.jid);
-                if (picUrl) dataToUpdate.profilePictureUrl = picUrl;
-            }
-
-            // 2. Business Profile / Extended Info
-            const biz = await service.fetchBusinessProfile(contact.jid) as { description?: string, email?: string, website?: string[] } | null;
-            if (biz) {
-                if (biz.description) dataToUpdate.description = biz.description;
-                if (biz.email) dataToUpdate.email = biz.email;
-                if (biz.website) dataToUpdate.website = biz.website.join(', '); // Often an array
-                dataToUpdate.isBusiness = true;
-            }
+            // Combined Profile/Business fetch
+            const details = await provider.getContactDetails(contact.jid);
+            
+            if (details.profilePictureUrl) dataToUpdate.profilePictureUrl = details.profilePictureUrl;
+            if (details.description) dataToUpdate.description = details.description;
+            if (details.email) dataToUpdate.email = details.email;
+            if (details.website) dataToUpdate.website = details.website;
+            if (details.isBusiness) dataToUpdate.isBusiness = true;
+            if (details.pushName && !contact.pushName) dataToUpdate.pushName = details.pushName;
 
             if (Object.keys(dataToUpdate).length > 0) {
                 await prisma.contact.update({

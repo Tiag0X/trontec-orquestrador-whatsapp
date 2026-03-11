@@ -30,6 +30,10 @@ interface Group {
 interface RemoteGroup { id: string; subject: string; }
 interface Prompt { id: string; name: string; content: string; }
 interface SettingsForm {
+    whatsappProvider: string;
+    whatsappApiUrl: string;
+    whatsappToken: string;
+    whatsappInstanceName: string;
     evolutionApiUrl: string; evolutionInstanceName: string; evolutionToken: string;
     openaiApiKey: string; defaultPromptId: string;
     isAutoReportEnabled: boolean; autoReportTime: string; autoReportPeriod: string;
@@ -72,6 +76,8 @@ export default function SettingsPage() {
 
     const form = useForm<SettingsForm>({
         defaultValues: {
+            whatsappProvider: 'EVOLUTION',
+            whatsappApiUrl: '', whatsappToken: '', whatsappInstanceName: '',
             evolutionApiUrl: '', evolutionInstanceName: '', evolutionToken: '',
             openaiApiKey: '', defaultPromptId: '',
             isAutoReportEnabled: false, autoReportTime: '08:00', autoReportPeriod: 'YESTERDAY',
@@ -350,25 +356,56 @@ export default function SettingsPage() {
                 {/* GENERAL */}
                 <TabsContent value="general" className="mt-6">
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        {/* API Connections */}
+                        {/* WhatsApp Provider & Connection */}
                         <Card className="border shadow-sm">
                             <CardHeader className="pb-4">
-                                <CardTitle className="text-base flex items-center gap-2"><Globe className="h-4 w-4 text-muted-foreground" /> Conexões de API</CardTitle>
-                                <CardDescription>Configure as URLs e chaves de acesso.</CardDescription>
+                                <CardTitle className="text-base flex items-center gap-2"><Globe className="h-4 w-4 text-muted-foreground" /> Conexão WhatsApp</CardTitle>
+                                <CardDescription>Selecione o provedor e configure a conexão.</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label className="text-sm font-medium">URL da API Evolution</Label>
-                                    <Input {...register('evolutionApiUrl')} placeholder="https://api.evolution.com" className="font-mono text-sm" />
+                                    <Label className="text-sm font-medium">Provedor WhatsApp</Label>
+                                    <select {...register('whatsappProvider')} className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                        <option value="EVOLUTION">Evolution API (v1)</option>
+                                        <option value="UAZAPI">Uazapi (v2.0)</option>
+                                    </select>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label className="text-sm font-medium">Nome da Instância</Label>
-                                    <Input {...register('evolutionInstanceName')} placeholder="Minha Instância" className="font-mono text-sm" />
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2 md:col-span-2">
+                                        <Label className="text-sm font-medium">URL da API</Label>
+                                        <Input {...register('whatsappApiUrl')} placeholder="https://api.v2.uazapi.com" className="font-mono text-sm" />
+                                        <p className="text-[10px] text-muted-foreground italic">Ex: https://api.uazapi.com ou seu domínio próprio.</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label className="text-sm font-medium">Nome da Instância</Label>
+                                        <Input {...register('whatsappInstanceName')} placeholder="MinhaInstancia" className="font-mono text-sm" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label className="text-sm font-medium">Token / API Key</Label>
+                                        <Input {...register('whatsappToken')} type="password" placeholder="Seu token de acesso" className="font-mono text-sm" />
+                                    </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label className="text-sm font-medium">Token da Evolution API</Label>
-                                    <Input {...register('evolutionToken')} type="password" placeholder="Token de acesso" className="font-mono text-sm" />
-                                </div>
+
+                                {watch('whatsappProvider') === 'EVOLUTION' && !watch('whatsappApiUrl') && (
+                                    <div className="p-3 bg-yellow-50 border border-yellow-100 rounded-md">
+                                        <p className="text-[11px] text-yellow-800">
+                                            <strong>Nota:</strong> Usando campos legados da Evolution API. Recomendamos preencher os campos acima para migração definitiva.
+                                        </p>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+
+                        {/* Keep Evolution Fields hidden or as fallback if needed for UI continuity, 
+                            but basically the new fields replace them. For legacy support, 
+                            I'll leave the OpenAI field here. */}
+                        <Card className="border shadow-sm">
+                            <CardHeader className="pb-4">
+                                <CardTitle className="text-base flex items-center gap-2"><Shield className="h-4 w-4 text-muted-foreground" /> Outras Chaves</CardTitle>
+                                <CardDescription>Chaves de serviços externos.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
                                 <div className="space-y-2">
                                     <Label className="text-sm font-medium flex items-center gap-1.5">
                                         Chave OpenAI
@@ -389,8 +426,8 @@ export default function SettingsPage() {
                                 <div className="space-y-2">
                                     <Label className="text-sm font-medium">Prompt Padrão (Relatórios)</Label>
                                     <select {...register('defaultPromptId')} className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                                        <option value="">Nenhum selecionado</option>
-                                        {prompts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                                        <option key="default-prompt-none" value="">Nenhum selecionado</option>
+                                        {prompts.map(p => <option key={`prompt-opt-${p.id}`} value={p.id}>{p.name}</option>)}
                                     </select>
                                 </div>
                             </CardContent>
@@ -489,7 +526,7 @@ export default function SettingsPage() {
                         <CardContent className="space-y-2">
                             {loadingGroups ? (
                                 Array.from({ length: 3 }).map((_, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
+                                    <div key={`loading-group-${i}`} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
                                         <div className="h-4 w-32 bg-muted rounded" />
                                         <div className="ml-auto h-4 w-20 bg-muted rounded" />
                                     </div>
@@ -516,69 +553,71 @@ export default function SettingsPage() {
                                         </div>
                                     )}
 
-                                    {groups.map((group) => {
-                                        const isSelected = selectedLocalGroups.has(group.id)
-                                        return (
-                                            <div
-                                                key={group.id}
-                                                className={`flex items-center gap-3 p-3 rounded-lg border transition-colors group cursor-pointer ${isSelected ? 'bg-primary/5 border-primary/30' : 'hover:bg-muted/30'}`}
-                                                onClick={() => toggleLocalGroupSelection(group.id)}
-                                            >
-                                                <Checkbox
-                                                    checked={isSelected}
-                                                    onCheckedChange={() => toggleLocalGroupSelection(group.id)}
-                                                    onClick={(e) => e.stopPropagation()}
-                                                />
-                                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/8 shrink-0">
-                                                    <Users className="h-4 w-4 text-primary" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-sm font-medium truncate">{group.name}</p>
-                                                    <div className="flex gap-2 mt-0.5">
-                                                        {group.prompt && (
-                                                            <span className="text-[10px] text-muted-foreground">
-                                                                Prompt: <span className="font-medium text-foreground/80">{group.prompt.name}</span>
-                                                            </span>
-                                                        )}
+                                    <div className="space-y-2">
+                                        {groups.map((group) => {
+                                            const isSelected = selectedLocalGroups.has(group.id)
+                                            return (
+                                                <div
+                                                    key={group.id}
+                                                    className={`flex items-center gap-3 p-3 rounded-lg border transition-colors group cursor-pointer ${isSelected ? 'bg-primary/5 border-primary/30' : 'hover:bg-muted/30'}`}
+                                                    onClick={() => toggleLocalGroupSelection(group.id)}
+                                                >
+                                                    <Checkbox
+                                                        checked={isSelected}
+                                                        onCheckedChange={() => toggleLocalGroupSelection(group.id)}
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    />
+                                                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/8 shrink-0">
+                                                        <Users className="h-4 w-4 text-primary" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-medium truncate">{group.name}</p>
+                                                        <div className="flex gap-2 mt-0.5">
+                                                            {group.prompt && (
+                                                                <span className="text-[10px] text-muted-foreground">
+                                                                    Prompt: <span className="font-medium text-foreground/80">{group.prompt.name}</span>
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex gap-2 items-center" onClick={(e) => e.stopPropagation()}>
+                                                        <div className="flex items-center gap-2 mr-4 bg-muted/40 px-2 py-1 rounded-md border">
+                                                            <Label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Automático</Label>
+                                                            <Switch
+                                                                checked={group.includeInAutoReport}
+                                                                onCheckedChange={(checked) => handleUpdateGroup(group.id, { includeInAutoReport: checked })}
+                                                                className="scale-75"
+                                                            />
+                                                        </div>
+                                                        <select
+                                                            value={group.sendToJid || ''}
+                                                            onChange={e => handleUpdateGroup(group.id, { sendToJid: e.target.value || null })}
+                                                            className="h-7 w-40 px-2 text-xs rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-primary truncate"
+                                                            title="Grupo de Destino do Relatório"
+                                                        >
+                                                            <option value="">Enviar p/ Próprio Grupo</option>
+                                                            {groups.map(g => (
+                                                                <option key={`target-${group.id}-${g.id}`} value={g.jid || ''}>
+                                                                    {g.name === group.name ? '(Este Grupo)' : `Enviar p/ ${g.name}`}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                        <select
+                                                            value={group.promptId || ''}
+                                                            onChange={e => handleUpdateGroup(group.id, { promptId: e.target.value || null })}
+                                                            className="h-7 px-2 text-xs rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                                                        >
+                                                            <option value="">Sem prompt</option>
+                                                            {prompts.map(p => <option key={`prompt-${group.id}-${p.id}`} value={p.id}>{p.name}</option>)}
+                                                        </select>
+                                                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => handleDeleteGroup(group.id)}>
+                                                            <Trash2 className="h-3.5 w-3.5" />
+                                                        </Button>
                                                     </div>
                                                 </div>
-                                                <div className="flex gap-2 items-center" onClick={(e) => e.stopPropagation()}>
-                                                    <div className="flex items-center gap-2 mr-4 bg-muted/40 px-2 py-1 rounded-md border">
-                                                        <Label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Automático</Label>
-                                                        <Switch
-                                                            checked={group.includeInAutoReport}
-                                                            onCheckedChange={(checked) => handleUpdateGroup(group.id, { includeInAutoReport: checked })}
-                                                            className="scale-75"
-                                                        />
-                                                    </div>
-                                                    <select
-                                                        value={group.sendToJid || ''}
-                                                        onChange={e => handleUpdateGroup(group.id, { sendToJid: e.target.value || null })}
-                                                        className="h-7 w-40 px-2 text-xs rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-primary truncate"
-                                                        title="Grupo de Destino do Relatório"
-                                                    >
-                                                        <option value="">Enviar p/ Próprio Grupo</option>
-                                                        {groups.map(g => (
-                                                            <option key={g.id} value={g.jid || ''}>
-                                                                {g.name === group.name ? '(Este Grupo)' : `Enviar p/ ${g.name}`}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                    <select
-                                                        value={group.promptId || ''}
-                                                        onChange={e => handleUpdateGroup(group.id, { promptId: e.target.value || null })}
-                                                        className="h-7 px-2 text-xs rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-primary"
-                                                    >
-                                                        <option value="">Sem prompt</option>
-                                                        {prompts.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                                                    </select>
-                                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => handleDeleteGroup(group.id)}>
-                                                        <Trash2 className="h-3.5 w-3.5" />
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
+                                            )
+                                        })}
+                                    </div>
                                 </>
                             )}
                         </CardContent>
@@ -730,7 +769,7 @@ export default function SettingsPage() {
                             <div className="space-y-2">
                                 {loadingUsers ? (
                                     Array.from({ length: 2 }).map((_, i) => (
-                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
+                                        <div key={`loading-user-${i}`} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
                                             <div className="h-4 w-32 bg-muted rounded" />
                                             <div className="ml-auto h-4 w-20 bg-muted rounded" />
                                         </div>
@@ -789,7 +828,7 @@ export default function SettingsPage() {
                             <div className="space-y-2">
                                 {loadingRoles ? (
                                     Array.from({ length: 2 }).map((_, i) => (
-                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
+                                        <div key={`loading-role-${i}`} className="flex items-center gap-3 p-3 rounded-lg border animate-pulse">
                                             <div className="h-4 w-32 bg-muted rounded" />
                                             <div className="ml-auto h-4 w-20 bg-muted rounded" />
                                         </div>
@@ -918,9 +957,9 @@ export default function SettingsPage() {
                                 onChange={e => setUserForm({ ...userForm, roleId: e.target.value })}
                                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                             >
-                                <option value="" disabled>Selecione um perfil...</option>
+                                <option key="role-placeholder" value="" disabled>Selecione um perfil...</option>
                                 {roles.map(r => (
-                                    <option key={r.id} value={r.id}>{r.name}</option>
+                                    <option key={`role-opt-item-${r.id}`} value={r.id}>{r.name}</option>
                                 ))}
                             </select>
                         </div>

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { EvolutionService } from '../lib/services/evolution.service';
+import { WhatsAppFactory } from '../lib/services/whatsapp.factory';
 import fs from 'fs';
 
 const prisma = new PrismaClient();
@@ -8,11 +8,11 @@ async function main() {
     const settings = await prisma.settings.findFirst();
     if (!settings) throw new Error("No settings");
 
-    const evo = new EvolutionService(settings.evolutionApiUrl, settings.evolutionInstanceName, settings.evolutionToken);
+    const provider = WhatsAppFactory.getProvider(settings);
 
     try {
         console.log("Buscando todos os grupos...");
-        const groups = await evo.fetchAllGroups();
+        const groups = await provider.fetchAllGroups();
 
         const lines = groups.map(g => `ID: ${g.id} | Name: ${g.subject}`);
         fs.writeFileSync('remote_groups_dump.txt', lines.join('\n'));

@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import { EvolutionService } from '@/lib/services/evolution.service';
+import { WhatsAppFactory } from '@/lib/services/whatsapp.factory';
 
 const prisma = new PrismaClient();
 
@@ -40,11 +40,7 @@ async function run() {
                     const dbSettings = settings || await prisma.settings.findFirst();
                     if (!dbSettings) throw new Error("Configurações do sistema não encontradas.");
 
-                    const evolutionService = new EvolutionService(
-                        dbSettings.evolutionApiUrl,
-                        dbSettings.evolutionInstanceName,
-                        dbSettings.evolutionToken
-                    );
+                    const provider = WhatsAppFactory.getProvider(dbSettings);
 
                     const groups = await prisma.group.findMany({
                         where: {
@@ -63,7 +59,7 @@ async function run() {
 
                     for (const group of groups) {
                         try {
-                            await evolutionService.sendMessage(group.jid, schedMsg.message);
+                            await provider.sendMessage(group.jid, schedMsg.message);
                             results.push({ name: group.name, status: "SUCCESS" });
                             successCount++;
                         } catch (error: any) {

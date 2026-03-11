@@ -1,0 +1,224 @@
+RELATÓRIO DE 100 MENSAGENS
+Chat: 555191751921-1452255324@g.us
+Gerado em: 10/03/2026, 22:41:49
+--------------------------------------------------
+
+[10/03/2026 13:39:51] 250693164224592@lid:
+Vila Rica Bloco B 3/4
+--------------------------------------------------
+[10/03/2026 14:11:20] 206811449802994@lid:
+Condomínio: chácara das Flores. 
+Data:10/03/26
+Hora:14:00
+Situação: base não consegue contato para com o zelador. 
+Ação: celular foi verificado, bateria ok, chip ok. Mas não esta recebendo ligações. A princípio precisa de recarga .
+Responsável: Ronda João.
+--------------------------------------------------
+[10/03/2026 14:53:46] 206811449802994@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 16:01:03] 5514805117063@lid:
+Condomínio Senalba 
+Cerca elétrica rompida ⚡ 
+Ronda Víctor 
+Box 51 ao lado da quadra de futebol estacionamento dos fundos
+--------------------------------------------------
+[10/03/2026 16:30:38] 250693164224592@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 16:30:46] 250693164224592@lid:
+Vila Rica Bloco B 4/4
+--------------------------------------------------
+[10/03/2026 16:32:19] 5514805117063@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 16:32:20] 5514805117063@lid:
+Condomínio Sweet House
+Data: 10/03/26
+Hora: 16:29
+Situação: ADM do condomínio alegou que as luzes do condomínio estão acessas
+Ação realizada: Ronda no local para verificação da situação 
+Obs as luzes estão desligadas
+--------------------------------------------------
+[10/03/2026 16:32:20] 5514805117063@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 16:39:18] 250693164224592@lid:
+Condomínio: Jardim Independência 
+Data: 10/03/26
+Horário: 16:00
+Situação: Morador de rua  dormindo em local inapropriado.
+Ação realizada: Morador de rua foi convidado a se retirar do local. O mesmo acatou ao pedido.
+Responsável: Ronda Clóvis
+--------------------------------------------------
+[10/03/2026 18:08:30] 206811449802994@lid:
+Condomínio: Villa Phillipson. 
+Data:10/03/26Hora:17:20
+Situação: Armário inteligente desligado.
+Ação: zelador desligou disjuntor,  foi religado. Armário inteligente ligado, mas sem Internet. Internet e Armário reiniciados e não normalizou . Armário sem Internet. Encomenda depositada no armário inteligente. AP:201.
+Responsável: Ronda João.
+--------------------------------------------------
+[10/03/2026 18:09:13] 206811449802994@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 18:09:13] 206811449802994@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 18:09:13] 206811449802994@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 18:09:14] 206811449802994@lid:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 19:43:30] ✞ΜΔΜΜØŦĦ✞:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 19:46:24] ✞ΜΔΜΜØŦĦ✞:
+Condomínio: Altos do Ipê 
+Hora/data: 19:45-10/03/2026
+Situação: Zelador informa que o interfone de acesso pedestres não está funcionando corretamente.
+Ação: Ronda no local, utilizei ambos interfones, em duas chamadas distintas e funcionaram perfeitamente, sem sequer oscilar.
+Responsável: Luiz
+--------------------------------------------------
+[10/03/2026 19:47:32] ✞ΜΔΜΜØŦĦ✞:
+Saliento que a luz de injeção eletrônica do argo 99 está acesa, aparece a mensagem verificar motor, e o carro está mais fraco do que o normal...
+--------------------------------------------------
+[10/03/2026 19:49:03] Lucas Junqueira:
+👍🏻
+--------------------------------------------------
+[10/03/2026 19:57:37] Alexson Carvalho:
+Troca lá
+--------------------------------------------------
+[10/03/2026 20:07:18] ✞ΜΔΜΜØŦĦ✞:
+Positivo
+--------------------------------------------------
+[10/03/2026 20:07:32] ✞ΜΔΜΜØŦĦ✞:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:17:49] ✞ΜΔΜΜØŦĦ✞:
+Condomínio: Di Roana 
+Hora/data: 20:16-10/03/2026
+Situação: Entrega agendada das 20h às 23h para o morador da casa 13.
+Ação: Ronda no local, testei as tags e estão em pleno funcionamento, o pagamento seria no cartão, mas o morador que recebeu pagou com moeda nacional corrente.
+Responsável: Luiz
+--------------------------------------------------
+[10/03/2026 20:18:08] ✞ΜΔΜΜØŦĦ✞:
+Galonera
+--------------------------------------------------
+[10/03/2026 20:21:21] Ronda Intermediário:
+Condomínio: Portal Petrópolis. 
+Data: 08/03/26
+Hora:20:00
+Situação: encomendas colocadas no mesmo compartimento. 
+Ação: total de 05 encomendas. 02=AP:903,
+01=Ap:504,01=AP:503,01=AP:202. Entregues corretamente no armário inteligente. 
+Responsável: Ronda João.
+--------------------------------------------------
+[10/03/2026 20:21:24] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:25] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:25] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:25] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:26] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:28] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:28] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:28] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:29] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:21:30] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 20:22:02] Ronda Intermediário:
+Condomínio: Portal Petrópolis. 
+Data: 08/03/26
+Hora:20:00
+Situação: encomendas colocadas no mesmo compartimento. 
+Ação: total de 05 encomendas. 02=AP:903, unificadas.
+01=Ap:504,01=AP:503,01=AP:202. Entregues corretamente no armário inteligente. 
+Responsável: Ronda João.
+--------------------------------------------------
+[10/03/2026 20:22:15] Lucas Junqueira:
+positivo
+--------------------------------------------------
+[10/03/2026 20:22:16] Lucas Junqueira:
+tks
+--------------------------------------------------
+[10/03/2026 20:37:26] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 21:08:24] João Schunk:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 21:08:36] João Schunk:
+Kwid 02 abastecido
+--------------------------------------------------
+[10/03/2026 21:28:49] ✞ΜΔΜΜØŦĦ✞:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 21:31:46] ✞ΜΔΜΜØŦĦ✞:
+Distância entre os polos do Reed pode estar causando os eventos de arrombamento. Porta a princípio SN.
+--------------------------------------------------
+[10/03/2026 21:35:36] ✞ΜΔΜΜØŦĦ✞:
+Condomínio: Quinta de Évora 
+Hora/data: 21:35-10/03/2026
+Situação: Base relata que porta Hall principal está gerando arrombamentos, e com isso disparando a sirene.
+Ação: Ronda no local, porta SN, porém a distância entre os pólos do Reed pode estar gerando os eventos, único motivo aparente.
+Responsável: Luiz
+--------------------------------------------------
+[10/03/2026 21:35:55] Lucas Junqueira:
+👍🏻
+--------------------------------------------------
+[10/03/2026 21:42:48] ✞ΜΔΜΜØŦĦ✞:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 21:45:21] ✞ΜΔΜΜØŦĦ✞:
+Vegetação tocando a cerca elétrica conforme o vento, muro lateral esquerdo de quem acessa...
+--------------------------------------------------
+[10/03/2026 21:47:19] Ronda Intermediário:
+Condomínio: Villa Phillipson. 
+Data :10/03/26
+Hora: 21:40
+Situação: verificação da Internet do armário inteligente. 
+Ação: Armário segue sem Internet. Foi verificado que a luz verde 03 do switch está desligada. Troquei com o cabo 04 e funcionou,  pode ser a problema no conector.
+Responsável: Ronda João.
+--------------------------------------------------
+[10/03/2026 21:47:47] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 21:48:10] Ronda Intermediário:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 21:48:26] Lucas Junqueira:
+positivo
+--------------------------------------------------
+[10/03/2026 21:48:27] Lucas Junqueira:
+tks
+--------------------------------------------------
+[10/03/2026 22:08:20] ✞ΜΔΜΜØŦĦ✞:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 22:08:54] ✞ΜΔΜΜØŦĦ✞:
+SN
+--------------------------------------------------
+[10/03/2026 22:39:24] ✞ΜΔΜΜØŦĦ✞:
+<Sem conteúdo / Sistema>
+--------------------------------------------------
+[10/03/2026 22:40:39] Lucas Junqueira:
+👍🏻
+--------------------------------------------------

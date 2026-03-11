@@ -1,6 +1,6 @@
 import { ReportProcessor } from '../lib/services/processor.service';
 import { prisma } from '../lib/prisma';
-import { EvolutionService } from '../lib/services/evolution.service';
+import { WhatsAppFactory } from '../lib/services/whatsapp.factory';
 import { LangChainService } from '../lib/services/langchain-agent.service';
 
 jest.mock('../lib/prisma', () => ({
@@ -12,7 +12,7 @@ jest.mock('../lib/prisma', () => ({
     }
 }));
 
-jest.mock('../lib/services/evolution.service');
+jest.mock('../lib/services/whatsapp.factory');
 jest.mock('../lib/services/langchain-agent.service');
 
 describe('ReportProcessor', () => {
@@ -26,10 +26,10 @@ describe('ReportProcessor', () => {
 
         mockFetchMessages = jest.fn();
         mockSendMessage = jest.fn();
-        (EvolutionService as jest.Mock).mockImplementation(() => ({
+        (WhatsAppFactory.getProvider as jest.Mock).mockReturnValue({
             fetchMessages: mockFetchMessages,
             sendMessage: mockSendMessage
-        }));
+        });
 
         mockGenerateReport = jest.fn();
         (LangChainService as jest.Mock).mockImplementation(() => ({
@@ -62,9 +62,13 @@ describe('ReportProcessor', () => {
         // Generate 3000 mock messages (Just now - 1h)
         // We pass explicit date range to process(), so filtering will catch them.
         const messages = Array.from({ length: 3000 }, (_, i) => ({
-            messageTimestamp: ((Date.now() / 1000) - 3600).toString(),
+            id: `id_${i}`,
+            timestamp: ((Date.now() / 1000) - 3600),
             pushName: `User ${i}`,
-            message: { conversation: `Message ${i}` }
+            text: `Message ${i}`,
+            from: '123@g.us',
+            to: '123@g.us',
+            isGroup: true
         }));
 
         mockFetchMessages.mockResolvedValue(messages);

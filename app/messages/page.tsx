@@ -337,7 +337,7 @@ export default function MessagesPage() {
                                     className="w-full sm:max-w-[220px] h-9"
                                     value={scheduledDate}
                                     onChange={(e) => setScheduledDate(e.target.value)}
-                                    min={new Date().toISOString().slice(0, 16)}
+                                    min={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
                                 />
                                 {scheduledDate && <Button variant="ghost" size="sm" onClick={() => setScheduledDate("")} className="text-xs h-8 w-fit text-muted-foreground hover:text-foreground">Limpar</Button>}
                             </div>

@@ -48,15 +48,24 @@ export default function ReportsPage() {
     };
 
     useEffect(() => { fetchReports(); }, []);
-    useEffect(() => { if (isGenerateOpen) setStartDate(new Date().toISOString().split('T')[0]); }, [isGenerateOpen]);
+    useEffect(() => { 
+        if (isGenerateOpen) {
+            const format = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            const todayStr = format(new Date());
+            setStartDate(todayStr);
+            setEndDate(todayStr);
+        }
+    }, [isGenerateOpen]);
 
     const setPresetDate = (type: 'today' | 'yesterday' | '48h') => {
         const end = new Date();
         const start = new Date();
         if (type === 'yesterday') { start.setDate(start.getDate() - 1); end.setDate(end.getDate() - 1); }
         else if (type === '48h') { start.setDate(start.getDate() - 2); }
-        setStartDate(start.toISOString().split('T')[0]);
-        setEndDate(end.toISOString().split('T')[0]);
+        
+        const format = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        setStartDate(format(start));
+        setEndDate(format(end));
     };
 
     const handleGenerate = async () => {

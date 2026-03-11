@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { EvolutionService } from '../lib/services/evolution.service';
+import { WhatsAppFactory } from '../lib/services/whatsapp.factory';
 
 const prisma = new PrismaClient();
 
@@ -7,11 +7,11 @@ async function main() {
     const settings = await prisma.settings.findFirst();
     if (!settings) throw new Error("No settings");
 
-    console.log("Conectando à API Evolution...");
-    const evo = new EvolutionService(settings.evolutionApiUrl, settings.evolutionInstanceName, settings.evolutionToken);
+    console.log("Conectando ao WhatsApp via Provider...");
+    const provider = WhatsAppFactory.getProvider(settings);
 
     try {
-        const groups = await evo.fetchAllGroups();
+        const groups = await provider.fetchAllGroups();
         console.log(`Total de grupos remotos: ${groups.length}`);
 
         const rondas = groups.filter(g => g.subject.toLowerCase().includes('ronda'));

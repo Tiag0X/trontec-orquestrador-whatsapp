@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from "@/lib/prisma";
-import { EvolutionService } from "@/lib/services/evolution.service";
+import { WhatsAppFactory } from "@/lib/services/whatsapp.factory";
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
         const { groupIds, message } = body;
+
+        // ... validation logic (keep identical, assuming lines 10-16 are fine, but I'll replace the block to be safe)
 
         if (!groupIds || !Array.isArray(groupIds) || groupIds.length === 0) {
             return NextResponse.json({ error: "Nenhum grupo selecionado" }, { status: 400 });
@@ -20,11 +22,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Configurações não encontradas" }, { status: 500 });
         }
 
-        const evolutionService = new EvolutionService(
-            settings.evolutionApiUrl,
-            settings.evolutionInstanceName,
-            settings.evolutionToken
-        );
+        const provider = WhatsAppFactory.getProvider(settings);
 
         // 2. Fetch Groups
         const groups = await prisma.group.findMany({
@@ -47,7 +45,7 @@ export async function POST(req: Request) {
             try {
                 // Always send to the actual group JID for broadcasts
                 // (sendToJid is only for forwarding incoming messages, not broadcasts)
-                await evolutionService.sendMessage(group.jid, message);
+                await provider.sendMessage(group.jid, message);
                 results.push({ name: group.name, status: "SUCCESS" });
                 successCount++;
             } catch (error) {

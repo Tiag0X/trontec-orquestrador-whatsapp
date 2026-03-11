@@ -1,0 +1,174 @@
+﻿­ƒÜÇ Iniciando teste da API Uazapi...
+­ƒôí Provedor selecionado: UAZAPI
+­ƒöù URL: https://trontec.uazapi.com
+­ƒôØ Inst├óncia: npopQk
+
+­ƒöä Buscando grupos remotos...
+­ƒôª Estrutura da Resposta (primeiros 2 itens de groups):
+[
+  {
+    "JID": "120363425055100991@g.us",
+    "OwnerJID": "95688264310836@lid",
+    "OwnerPN": "555180281931@s.whatsapp.net",
+    "Name": "Ed. Ch├ícara Flora",
+    "NameSetAt": "2026-02-04T12:13:29Z",
+    "NameSetBy": "95688264310836@lid",
+    "NameSetByPN": "555180281931@s.whatsapp.net",
+    "Topic": "",
+    "TopicID": "",
+    "TopicSetAt": "0001-01-01T00:00:00Z",
+    "TopicSetBy": "",
+    "TopicSetByPN": "",
+    "TopicDeleted": false,
+    "IsLocked": false,
+    "IsAnnounce": false,
+    "AnnounceVersionID": "1770207209564206",
+    "IsEphemeral": false,
+    "DisappearingTimer": 0,
+    "IsIncognito": false,
+    "IsParent": false,
+    "DefaultMembershipApprovalMode": "",
+    "LinkedParentJID": "120363404451507231@g.us",
+    "IsDefaultSubGroup": false,
+    "IsJoinApprovalRequired": false,
+    "AddressingMode": "lid",
+    "GroupCreated": "2026-02-04T12:13:29Z",
+    "CreatorCountryCode": "BR",
+    "ParticipantVersionID": "1770207209734858",
+    "Participants": null,
+    "ParticipantCount": 0,
+    "MemberAddMode": "all_member_add",
+    "Suspended": false,
+    "OwnerCanSendMessage": true,
+    "OwnerIsAdmin": true
+  },
+  {
+    "JID": "120363423305006308@g.us",
+    "OwnerJID": "95688264310836@lid",
+    "OwnerPN": "555180281931@s.whatsapp.net",
+    "Name": "Ed. Ch├ícara das flores",
+    "NameSetAt": "2026-02-01T19:05:06Z",
+    "NameSetBy": "95688264310836@lid",
+    "NameSetByPN": "555180281931@s.whatsapp.net",
+    "Topic": "",
+    "TopicID": "",
+    "TopicSetAt": "0001-01-01T00:00:00Z",
+    "TopicSetBy": "",
+    "TopicSetByPN": "",
+    "TopicDeleted": false,
+    "IsLocked": false,
+    "IsAnnounce": false,
+    "AnnounceVersionID": "1769972706731979",
+    "IsEphemeral": false,
+    "DisappearingTimer": 0,
+    "IsIncognito": false,
+    "IsParent": false,
+    "DefaultMembershipApprovalMode": "",
+    "LinkedParentJID": "120363404451507231@g.us",
+    "IsDefaultSubGroup": false,
+    "IsJoinApprovalRequired": false,
+    "AddressingMode": "lid",
+    "GroupCreated": "2026-02-01T19:05:06Z",
+    "CreatorCountryCode": "BR",
+    "ParticipantVersionID": "1769972706918905",
+    "Participants": null,
+    "ParticipantCount": 0,
+    "MemberAddMode": "all_member_add",
+    "Suspended": false,
+    "OwnerCanSendMessage": true,
+    "OwnerIsAdmin": true
+  }
+]
+Ô£à Sucesso! Encontrados 110 grupos.
+
+­ƒöì Testando busca de mensagens para o grupo: undefined (undefined)
+­ƒôª Teclas do objeto de mensagem:
+[
+  'buttonOrListid',   'chatid',
+  'content',          'convertOptions',
+  'edited',           'error',
+  'fileURL',          'fromMe',
+  'id',               'isGroup',
+  'messageTimestamp', 'messageType',
+  'messageid',        'owner',
+  'quoted',           'reaction',
+  'send_folder_id',   'sender',
+  'senderName',       'source',
+  'status',           'text',
+  'track_id',         'track_source',
+  'vote'
+]
+[
+  {
+    "buttonOrListid": "",
+    "chatid": "555191751921-1452255324@g.us",
+    "content": {
+      "contextInfo": {
+        "participant": "555184955580@s.whatsapp.net",
+        "quotedMessage": {
+          "imageMessage": {
+            "JPEGThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAD8AMAMBIgACEQEDEQH/xAAuAAACAwEBAAAAAAAAAAAAAAACBQEDBAYAAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAKG2NomEGkiJd1qta2itmXFVYTj10iRlzDUdHl9GiuoJeWYrtW50ZBORegY//8QAJxAAAgICAQIEBwAAAAAAAAAAAQIAEQMEIQUSECRBUhMUIzJhcoL/2gAIAQEAAT8A1tTuxq/rPlkYAsOY2ohb7IdBbscTN04ubDTPp5NcBmqp0x7wkn3QOpNCDmVCJ1NL1509fLL+TFFEACADx2078TLVkiaD+WSK98UZQqA8C4TMk6c30f6ivZq4pqd07ozCYsz4jamam0+VypAgLD1uFzXAjsUWzMZLkuRx6eHTjWVv1g5AgMPPhc0r+OsUwE+2cw82Ln//xAAaEQABBQEAAAAAAAAAAAAAAAABABARIUEg/9oACAECAQE/AGFV0ZxyYxf/xAAZEQACAwEAAAAAAAAAAAAAAAARIAABIVH/2gAIAQMBAT8AgrjjCn//2Q==",
+            "URL": "https://mmg.whatsapp.net/v/t62.7118-24/552384997_1499485468352309_5117676862311507893_n.enc?ccb=11-4&oh=01_Q5Aa4AFTGzlhkx2IEE3DCnCmlhy1Ah4yowzxytGTXmJnBUKnBg&oe=69D83057&_nc_sid=5e03e0&mms3=true",
+            "contextInfo": {
+              "mediaDomainInfo": {
+                "e2EeMediaKey": "AZbgUVdYIxbNSoYMulUK7PXT+X4QBikdoLPCxq641Bw=",
+                "mediaKeyDomain": 1
+              },
+              "pairedMediaType": 0
+            },
+            "directPath": "/v/t62.7118-24/552384997_1499485468352309_5117676862311507893_n.enc?ccb=11-4&oh=01_Q5Aa4AFTGzlhkx2IEE3DCnCmlhy1Ah4yowzxytGTXmJnBUKnBg&oe=69D83057&_nc_sid=5e03e0",
+            "fileEncSHA256": "ZOsqjqM/MWuOYvAGi8XXiyQi+fkCeyvVZcEVSp/RrsA=",
+            "fileLength": 140650,
+            "fileSHA256": "PIAQvCZ1F2sMDdCXXKIbg+XZWeabGMp4YX8JoyGG7Ds=",
+            "height": 1600,
+            "mediaKey": "AZbgUVdYIxbNSoYMulUK7PXT+X4QBikdoLPCxq641Bw=",
+            "mediaKeyTimestamp": 1773187702,
+            "midQualityFileSHA256": "U5LTG2QAt5m8UHx4cIPjk2DQAtdeBhKSdsU3VUfke4M=",
+            "mimetype": "image/jpeg",
+            "scanLengths": [
+              15490,
+              47963,
+              26882,
+              50315
+            ],
+            "scansSidecar": "yXdBKrr08S066OmIvVgYMd16fIDfPtmrFm6pAbdLpsRgSLQ60C1GNg==",
+            "width": 1204
+          }
+        },
+        "quotedType": 0,
+        "stanzaID": "AC98B6E81E47EF26C9FF072953DDA5D4"
+      },
+      "inviteLinkGroupTypeV2": 0,
+      "previewType": 0,
+      "text": "Kwid 02 abastecido"
+    },
+    "convertOptions": "",
+    "edited": "",
+    "error": "",
+    "fileURL": "",
+    "fromMe": false,
+    "id": "555180281931:ACE566D6ABACB02D98B853BB2CC47E83",
+    "isGroup": true,
+    "messageTimestamp": 1773187716000,
+    "messageType": "ExtendedTextMessage",
+    "messageid": "ACE566D6ABACB02D98B853BB2CC47E83",
+    "owner": "555180281931",
+    "quoted": "AC98B6E81E47EF26C9FF072953DDA5D4",
+    "reaction": "",
+    "send_folder_id": "",
+    "sender": "12489882366024@lid",
+    "senderName": "Jo├úo Schunk",
+    "source": "android",
+    "status": "",
+    "text": "Kwid 02 abastecido",
+    "track_id": "",
+    "track_source": "",
+    "vote": ""
+  }
+]
+Ô£à Encontradas 5 mensagens.
+ - [10/03/2026, 21:08:36] 12489882366024@lid: Kwid 02 abastecido...
+ - [10/03/2026, 21:08:24] 12489882366024@lid: ...
+ - [10/03/2026, 20:37:26] 206811449802994@lid: ...
+ - [10/03/2026, 20:22:16] 162938207879401:80@lid: tks...
+ - [10/03/2026, 20:22:15] 162938207879401:80@lid: positivo...
