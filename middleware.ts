@@ -11,8 +11,23 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next()
     }
 
-    // Check auth
+    // Check S2S Header Auth exclusively for API routes
+    if (pathname.startsWith('/api/')) {
+        const pwdHeader = request.headers.get('password')
+        if (pwdHeader && pwdHeader === process.env.APP_PASSWORD) {
+            return NextResponse.next()
+        }
+    }
+
+    // Check session via Cookie (Frontend Users)
     if (!authCookie || !authCookie.value) {
+        // Se for uma requisição de API sem cookie/senha, retorna 401 direto em vez de redirect HTML
+        if (pathname.startsWith('/api/')) {
+            return new NextResponse(
+                JSON.stringify({ error: 'Auth required (Header password or Session Cookie)' }), 
+                { status: 401, headers: { 'content-type': 'application/json' } }
+            )
+        }
         return NextResponse.redirect(new URL('/login', request.url))
     }
 
