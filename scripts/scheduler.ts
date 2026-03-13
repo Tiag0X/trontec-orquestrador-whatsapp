@@ -44,48 +44,79 @@ cron.schedule('* * * * *', async () => {
             }
         });
 
+        const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
         if (pendingMessages.length > 0) {
             console.log(`[${now.toISOString()}] ✉️ Encontradas ${pendingMessages.length} mensagens agendadas para envio.`);
 
             for (const schedMsg of pendingMessages) {
                 try {
-                    let groupIds: string[] = [];
+                    let recipientsData: { groupIds?: string[], contactIds?: string[] } = {};
                     try {
-                        groupIds = JSON.parse(schedMsg.recipients);
+                        const parsed = JSON.parse(schedMsg.recipients);
+                        // Suporte ao novo formato {groupIds, contactIds} ou ao antigo array de IDs
+                        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                            recipientsData = parsed;
+                        } else if (Array.isArray(parsed)) {
+                            recipientsData = { groupIds: parsed };
+                        }
                     } catch {
-                        groupIds = [schedMsg.recipients];
+                        recipientsData = { groupIds: [schedMsg.recipients] };
                     }
 
-                    console.log(`-> Processando mensagem agendada (ID: ${schedMsg.id}) para ${groupIds.length} grupos...`);
+                    const gIds = recipientsData.groupIds || [];
+                    const cIds = recipientsData.contactIds || [];
+
+                    console.log(`-> Processando mensagem agendada (ID: ${schedMsg.id}) para ${gIds.length} grupos e ${cIds.length} contatos...`);
 
                     const dbSettings = settings || await prisma.settings.findFirst();
                     if (!dbSettings) throw new Error("Configurações do sistema não encontradas.");
 
                     const provider = WhatsAppFactory.getProvider(dbSettings);
 
-                    const groups = await prisma.group.findMany({
-                        where: {
-                            id: { in: groupIds },
-                            isActive: true
-                        }
-                    });
+                    // Fetch all targets
+                    const targets: { name: string; jid: string; isContact: boolean }[] = [];
 
-                    if (groups.length === 0) {
-                        throw new Error("Nenhum grupo válido encontrado para envio.");
+                    if (gIds.length > 0) {
+                        const groups = await prisma.group.findMany({
+                            where: { id: { in: gIds }, isActive: true }
+                        });
+                        for (const g of groups) {
+                            targets.push({ name: g.name, jid: g.jid, isContact: false });
+                        }
+                    }
+
+                    if (cIds.length > 0) {
+                        const contacts = await prisma.contact.findMany({
+                            where: { id: { in: cIds } }
+                        });
+                        for (const c of contacts) {
+                            targets.push({ name: c.name || c.jid, jid: c.jid, isContact: true });
+                        }
+                    }
+
+                    if (targets.length === 0) {
+                        throw new Error("Nenhum destinatário válido encontrado para envio.");
                     }
 
                     const results = [];
                     let successCount = 0;
                     let failCount = 0;
 
-                    for (const group of groups) {
+                    for (const target of targets) {
                         try {
-                            await provider.sendMessage(group.jid, schedMsg.message);
-                            results.push({ name: group.name, status: "SUCCESS" });
+                            // Aplicar delay randômico para contatos privados (Anti-Ban)
+                            if (target.isContact) {
+                                const waitTime = Math.floor(Math.random() * (5000 - 2000 + 1) + 2000);
+                                await delay(waitTime);
+                            }
+
+                            await provider.sendMessage(target.jid, schedMsg.message);
+                            results.push({ name: `[${target.isContact ? 'Contato' : 'Grupo'}] ${target.name}`, status: "SUCCESS" });
                             successCount++;
                         } catch (error: any) {
-                            console.error(`Falha ao enviar para ${group.name}:`, error);
-                            results.push({ name: group.name, status: "ERROR", error: error.message });
+                            console.error(`Falha ao enviar para ${target.name}:`, error);
+                            results.push({ name: `[${target.isContact ? 'Contato' : 'Grupo'}] ${target.name}`, status: "ERROR", error: error.message });
                             failCount++;
                         }
                     }
@@ -114,7 +145,7 @@ cron.schedule('* * * * *', async () => {
                             data: { status: 'PARTIAL' }
                         });
                     } else {
-                        console.error(`❌ Falha ao enviar mensagem agendada para todos os grupos.`);
+                        console.error(`❌ Falha ao enviar mensagem agendada para todos os destinatários.`);
                         await prisma.scheduledMessage.update({
                             where: { id: schedMsg.id },
                             data: { status: 'FAILED' }

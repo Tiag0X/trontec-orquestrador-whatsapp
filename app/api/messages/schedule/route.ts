@@ -20,11 +20,22 @@ export async function GET() {
 
 export async function POST(req: Request) {
     try {
-        const body = await req.json() as { message: string, recipients: string[], scheduledAt: string };
-        const { message, recipients, scheduledAt } = body;
+        const body = await req.json();
+        const { message, groupIds = [], contactIds = [], scheduledAt } = body;
 
-        if (!message || !recipients || recipients.length === 0 || !scheduledAt) {
-            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        const hasGroups = Array.isArray(groupIds) && groupIds.length > 0;
+        const hasContacts = Array.isArray(contactIds) && contactIds.length > 0;
+
+        if (!hasGroups && !hasContacts) {
+            return NextResponse.json({ error: "Missing required fields: groupIds or contactIds" }, { status: 400 });
+        }
+
+        if (!message || typeof message !== 'string' || message.trim() === "") {
+            return NextResponse.json({ error: "Mensagem vazia" }, { status: 400 });
+        }
+
+        if (!scheduledAt) {
+            return NextResponse.json({ error: "Missing required field: scheduledAt" }, { status: 400 });
         }
 
         const scheduledDate = new Date(scheduledAt);
@@ -32,10 +43,16 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Invalid date format" }, { status: 400 });
         }
 
+        // Armazena no BD o objeto com as duas listas para que o scheduler processe ambos
+        const recipientsPayload = {
+            groupIds: hasGroups ? groupIds : [],
+            contactIds: hasContacts ? contactIds : []
+        };
+
         const scheduledMessage = await prisma.scheduledMessage.create({
             data: {
                 message,
-                recipients: JSON.stringify(recipients),
+                recipients: JSON.stringify(recipientsPayload),
                 scheduledAt: scheduledDate,
                 status: 'PENDING',
             }
